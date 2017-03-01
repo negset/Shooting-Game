@@ -16,7 +16,6 @@ public class Playdata
 	static int bomb;
 	static int power;
 	static int graze;
-	static boolean isFullpower;
 	static boolean isGameover;
 
 	public void init()
@@ -27,7 +26,6 @@ public class Playdata
 		bomb = 3;
 		power = 0;
 		graze = 0;
-		isFullpower = false;
 		isGameover = false;
 	}
 
@@ -78,13 +76,12 @@ public class Playdata
 
 	public static void addPower(int gain)
 	{
-		if (!isFullpower)
+		if (power < 128)
 		{
 			power += gain;
 			if (power >= 128)
 			{
 				power = 128;
-				isFullpower = true;
 			}
 		}
 	}
