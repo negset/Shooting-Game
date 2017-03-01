@@ -39,7 +39,7 @@ public class ObjectPool
 		// プレイヤーを作る
 		player = new Player[1];
 		player[0] = new Player();
-		player[0].activate(Play.AREA_XCENTER, 400);
+		player[0].activate(Play.AREA_CENTER_X, 400);
 
 		// 弾の配列を確保し,配列の要素分インスタンスを作る
 		bullet = new Bullet[BULLET_MAX];
@@ -97,7 +97,7 @@ public class ObjectPool
 		initObjects(damage);
 		initObjects(graze);
 
-		player[0].activate(Play.AREA_XCENTER, 400);
+		player[0].activate(Play.AREA_CENTER_X, 400);
 		Barrage.setPlayer(player[0]);
 	}
 

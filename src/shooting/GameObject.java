@@ -1,8 +1,8 @@
 package shooting;
 
 /**
- * ゲームオブジェクト抽象クラス.
- * プレイヤー,弾,敵などのスーパークラス.
+ * ゲームオブジェクト抽象クラス
+ * プレイヤー,弾,敵などのスーパークラス
  */
 public abstract class GameObject
 {

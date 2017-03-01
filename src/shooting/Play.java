@@ -20,8 +20,8 @@ public class Play extends GameState
 	public static final int AREA_BOTTOM = 580;
 	public static final int AREA_WIDTH = 480;
 	public static final int AREA_HEIGHT = 560;
-	public static final int AREA_XCENTER = 280;
-	public static final int AREA_YCENTER = 300;
+	public static final int AREA_CENTER_X = 280;
+	public static final int AREA_CENTER_Y = 300;
 
 	ObjectPool objectpool;
 	Playdata playdata;
@@ -130,17 +130,17 @@ public class Play extends GameState
 
 		if (Playdata.isGameover)
 		{
-			Text.drawString("GAME OVER", AREA_XCENTER, 240, 1);
-			Text.drawString("Zキーでタイトルに戻る", AREA_XCENTER, 300, 1);
+			Text.drawString("GAME OVER", AREA_CENTER_X, 240, 1);
+			Text.drawString("Zキーでタイトルに戻る", AREA_CENTER_X, 300, 1);
 		}
 		else if (isPause)
 		{
-			Text.drawString("タイトル画面に戻りますか？", AREA_XCENTER, 240, 1);
+			Text.drawString("タイトル画面に戻りますか？", AREA_CENTER_X, 240, 1);
 			if (cursor == 0) Text.setColor(0.9f, 0.9f, 0f);
-			Text.drawString("はい", AREA_XCENTER - 50, 300, 1);
+			Text.drawString("はい", AREA_CENTER_X - 50, 300, 1);
 			Text.setDefaultColor();
 			if (cursor == 1) Text.setColor(0.9f, 0.9f, 0f);
-			Text.drawString("いいえ", AREA_XCENTER + 50, 300, 1);
+			Text.drawString("いいえ", AREA_CENTER_X + 50, 300, 1);
 			Text.setDefaultColor();
 		}
 	}
