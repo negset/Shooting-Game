@@ -15,23 +15,23 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Font
 {
-	/** フォント名 **/
+	/** フォント名 */
 	private String fontName;
-	/** フォントサイズ **/
+	/** フォントサイズ */
 	private float fontSize;
-	/** 文字の総数 **/
+	/** 文字の総数 */
 	private int glyphNum;
-	/** 画像の総数 **/
+	/** 画像の総数 */
 	private int sheetNum;
-	/** 1文字分の画像の幅 **/
+	/** 1文字分の画像の幅 */
 	private int spriteSize;
-	/** 文字を格納する配列 **/
+	/** 文字を格納する配列 */
 	private char[] glyph;
-	/** 文字の横幅を格納する配列 **/
+	/** 文字の横幅を格納する配列 */
 	private int[] glyphWidth;
-	/** 文字画像を格納する配列 **/
+	/** 文字画像を格納する配列 */
 	private Image[] sprite;
-	/** 文字画像の描画色(RGBA) **/
+	/** 文字画像の描画色(RGBA) */
 	private float r, g, b, a;
 
 	/**

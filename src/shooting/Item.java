@@ -23,28 +23,38 @@ public class Item extends GameObject
 
 	Player player;
 	int type;
-	double distance;
 	float speedY;
 	int counter;
-	boolean autocollect;
+	/** 自動回収フラグ */
+	boolean autoCollect;
+	/** 自動接近フラグ */
+	boolean autoFollow;
 
+	/**
+	 * コンストラクタ
+	 *
+	 * @param player アイテム回収先
+	 */
 	Item(Player player)
 	{
 		active = false;
 		this.player = player;
 	}
 
+	/**
+	 * 動作を規定する.
+	 */
 	public void update()
 	{
 		if (player.active)
 		{
-			float xdis = player.x - x;
-			float ydis = player.y - y;
-			distance = Math.sqrt(Math.pow(xdis, 2) + Math.pow(ydis, 2));
+			float distX = player.x - x;
+			float distY = player.y - y;
+			double dist = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 
-			if (distance < 20)
+			// アイテム獲得
+			if (dist < 20)
 			{
-				// アイテム獲得
 				switch (type)
 				{
 					case 0:
@@ -75,23 +85,29 @@ public class Item extends GameObject
 				}
 				active = false;
 			}
-			else if (autocollect)
+			// 自動回収時の動作
+			else if (autoCollect)
 			{
-				// アイテムを自動で回収
-				x += (float) (xdis * 10 / distance);
-				y += (float) (ydis * 10 / distance);
+				x += (float) (distX * 10 / dist);
+				y += (float) (distY * 10 / dist);
 			}
 			else
 			{
-				if (player.y < 180 && Playdata.isFullpower)
+				// 自機が画面上部に来たら,自動回収フラグを立てる.
+				if (player.y < Play.AREA_TOP + 150)
 				{
-					autocollect = true;
+					autoCollect = true;
 				}
-				else if (distance < 45)
+				// 自動接近時の動作
+				else if (autoFollow)
 				{
-					// アイテムが近寄る
-					x += (float) (xdis * 3 / distance);
-					y += (float) (ydis * 3 / distance);
+					x += (float) (distX * 0.1);
+					y += (float) (distY * 0.1);
+				}
+				// 自機が近くに来たら,自動接近フラグを立てる.
+				else if (dist < 50)
+				{
+					autoFollow = true;
 				}
 				else
 				{
@@ -120,13 +136,16 @@ public class Item extends GameObject
 		{
 			speedY += 0.1;
 		}
-		// 画面外に出たら非アクティブにする
+		// 画面外に出たら非アクティブにする.
 		if (y > Play.AREA_BOTTOM + 8)
 		{
 			active = false;
 		}
 	}
 
+	/**
+	 * 描画処理を行う.
+	 */
 	public void render()
 	{
 		if (y > Play.AREA_TOP - 8)
@@ -139,14 +158,22 @@ public class Item extends GameObject
 		}
 	}
 
+	/**
+	 * インスタンスの有効化,初期化を行う.
+	 *
+	 * @param x X座標
+	 * @param y Y座標
+	 * @param type アイテムの種類
+	 */
 	public void activate(float x, float y, int type)
 	{
+		active = true;
 		this.x = x;
 		this.y = y;
-		active = true;
 		this.type = type;
 		speedY = -2;
 		counter = 0;
-		autocollect = false;
+		autoCollect = false;
+		autoFollow = false;
 	}
 }
