@@ -159,7 +159,7 @@ public class Item extends GameObject
 	}
 
 	/**
-	 * インスタンスの有効化,初期化を行う.
+	 * 初期化処理を行う.
 	 *
 	 * @param x X座標
 	 * @param y Y座標
