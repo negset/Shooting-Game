@@ -84,8 +84,7 @@ public class Player extends GameObject
 
 		if (invincible)
 		{
-			invincibleCnt++;
-			if (invincibleCnt > 250)
+			if (++invincibleCnt > 240)
 			{
 				invincibleCnt = 0;
 				invincible = false;
