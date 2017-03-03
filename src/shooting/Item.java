@@ -54,7 +54,7 @@ public class Item extends GameObject
 			double dist = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 
 			// アイテム獲得
-			if (dist < 20)
+			if (dist < 10)
 			{
 				switch (type)
 				{
