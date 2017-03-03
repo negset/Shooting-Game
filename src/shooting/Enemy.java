@@ -169,9 +169,9 @@ public class Enemy extends GameObject
 	 */
 	public void activate(float x, float y)
 	{
+		active = true;
 		this.x = x;
 		this.y = y;
-		active = true;
 		motion = Random.nextInt(3);
 		type = 0;
 		hitpoint = 3;

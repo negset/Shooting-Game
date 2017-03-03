@@ -109,9 +109,9 @@ public class Player extends GameObject
 
 	public void activate(float x, float y)
 	{
+		active = true;
 		this.x = x;
 		this.y = y;
-		active = true;
 		invincible = false;
 		invincibleCnt = 0;
 	}
