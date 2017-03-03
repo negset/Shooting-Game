@@ -13,7 +13,7 @@ public class Bullet extends GameObject
 		{
 			for (int i = 0; i < 7; i++)
 			{
-				img[i] = new Image("res/bullet"+i+".png");
+				img[i] = new Image("res/bullet" + i + ".png");
 			}
 		}
 		catch (SlickException e) {}
@@ -34,7 +34,6 @@ public class Bullet extends GameObject
 	 */
 	Bullet()
 	{
-		//初期化時はactiveでない
 		active = false;
 	}
 
