@@ -302,9 +302,9 @@ public class ObjectPool
 	private double getDistance(GameObject o1, GameObject o2)
 	{
 		// 三平方の定理
-		double Xdiff = Math.abs(o1.x - o2.x);
-		double Ydiff = Math.abs(o1.y - o2.y);
-		return Math.sqrt(Math.pow(Xdiff,2) + Math.pow(Ydiff,2));
+		double distX = Math.abs(o1.x - o2.x);
+		double distY = Math.abs(o1.y - o2.y);
+		return Math.sqrt(Math.pow(distX,2) + Math.pow(distY,2));
 	}
 
 	/**
