@@ -22,6 +22,16 @@ public abstract class GameObject
 	public float y;
 
 	/**
+	 * 画像の横幅
+	 */
+	public int width;
+
+	/**
+	 * 画像の縦幅
+	 */
+	public int height;
+
+	/**
 	 * 動作を規定する.
 	 */
 	public abstract void update();

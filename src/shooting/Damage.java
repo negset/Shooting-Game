@@ -25,7 +25,8 @@ public class Damage extends GameObject
 
 	Damage()
 	{
-		active = false;
+		width = img.getWidth();
+		height = img.getHeight();
 	}
 
 	public void update()

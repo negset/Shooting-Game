@@ -34,7 +34,8 @@ public class Bullet extends GameObject
 	 */
 	Bullet()
 	{
-		active = false;
+		width = img[0].getWidth();
+		height = img[0].getHeight();
 	}
 
 	public void update()

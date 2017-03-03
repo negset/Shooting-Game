@@ -35,7 +35,8 @@ public class Enemy extends GameObject
 	 */
 	Enemy()
 	{
-		active = false;
+		width = img[0].getWidth();
+		height = img[0].getHeight();
 	}
 
 	public void update()

@@ -28,8 +28,9 @@ public class Player extends GameObject
 
 	Player()
 	{
+		width = img[0].getWidth();
+		height = img[0].getHeight();
 		speed = 6;
-		active = false;
 	}
 
 	public void update()

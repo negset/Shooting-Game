@@ -22,7 +22,8 @@ public class Graze extends GameObject
 
 	Graze()
 	{
-		active = false;
+		width = img.getWidth();
+		height = img.getHeight();
 		x = new float[3];
 		y = new float[3];
 		angle = new int[3];

@@ -25,7 +25,8 @@ public class Explosion extends GameObject
 
 	Explosion()
 	{
-		active = false;
+		width = img[0].getWidth();
+		height = img[0].getHeight();
 	}
 
 	public void update()

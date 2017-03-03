@@ -37,7 +37,8 @@ public class Item extends GameObject
 	 */
 	Item(Player player)
 	{
-		active = false;
+		width = img[0].getWidth();
+		height = img[0].getHeight();
 		this.player = player;
 	}
 

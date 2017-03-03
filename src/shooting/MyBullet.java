@@ -20,8 +20,8 @@ public class MyBullet extends GameObject
 	 */
 	MyBullet()
 	{
-		// 生成時は非アクティブ
-		active = false;
+		width = img.getWidth();
+		height = img.getHeight();
 	}
 
 	/**
