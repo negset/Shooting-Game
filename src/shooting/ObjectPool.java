@@ -137,7 +137,10 @@ public class ObjectPool
 	 */
 	public void updateAllObjects()
 	{
-		player.update();
+		if (player.active)
+		{
+			player.update();
+		}
 		updateObjects(enemy);
 		updateObjects(mybullet);
 		updateObjects(bullet);
@@ -169,7 +172,10 @@ public class ObjectPool
 	 */
 	public void renderAllObjects()
 	{
-		player.render();
+		if (player.active)
+		{
+			player.render();
+		}
 		renderObjects(enemy);
 		renderObjects(mybullet);
 		renderObjects(bullet);
