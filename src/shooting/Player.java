@@ -63,8 +63,8 @@ public class Player extends GameObject
 		// 低速移動
 		if (KeyInput.getShift() >= 1)
 		{
-			mx *= 0.4;
-			my *= 0.4;
+			mx *= 0.44;
+			my *= 0.44;
 		}
 		postx = x + mx;
 		posty = y + my;
