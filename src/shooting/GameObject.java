@@ -1,5 +1,7 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
+
 /**
  * ゲームオブジェクト抽象クラス
  * プレイヤー,弾,敵などのスーパークラス
@@ -39,5 +41,5 @@ public abstract class GameObject
 	/**
 	 * 描画処理を行う.
 	 */
-	public abstract void render();
+	public abstract void render(Graphics g);
 }

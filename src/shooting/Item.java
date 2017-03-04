@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -147,7 +148,7 @@ public class Item extends GameObject
 	/**
 	 * 描画処理を行う.
 	 */
-	public void render()
+	public void render(Graphics g)
 	{
 		if (y > Play.AREA_TOP - 8)
 		{

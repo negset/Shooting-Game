@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -31,7 +32,7 @@ public class Damage extends GameObject
 
 	public void update()
 	{
-		y -= 2;
+		y -= 2.5;
 		counter++;
 		if (counter > 50)
 		{
@@ -39,7 +40,7 @@ public class Damage extends GameObject
 		}
 	}
 
-	public void render()
+	public void render(Graphics g)
 	{
 		scale = 2.0f - (float)counter/25;
 		img.setAlpha(1-(float)counter/50);

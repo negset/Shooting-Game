@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -140,7 +141,7 @@ public class Enemy extends GameObject
 	/**
 	 * 描画を行う.
 	 */
-	public void render()
+	public void render(Graphics g)
 	{
 		img[counter / 2 % 4].drawCentered(x, y);
 	}

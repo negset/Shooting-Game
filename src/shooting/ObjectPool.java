@@ -1,5 +1,7 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
+
 /**
  * ゲームオブジェクトの管理クラス.
  * プレイヤーや弾,敵などのインスタンスを持ち,
@@ -162,7 +164,6 @@ public class ObjectPool
 			if (object[i].active)
 			{
 				object[i].update();
-				object[i].render();
 			}
 		}
 	}
@@ -170,19 +171,19 @@ public class ObjectPool
 	/**
 	 * 全てのオブジェクトの描画処理を行う.
 	 */
-	public void renderAllObjects()
+	public void renderAllObjects(Graphics g)
 	{
-		renderObjects(item);
+		renderObjects(item, g);
 		if (player.active)
 		{
-			player.render();
+			player.render(g);
 		}
-		renderObjects(enemy);
-		renderObjects(mybullet);
-		renderObjects(bullet);
-		renderObjects(explosion);
-		renderObjects(damage);
-		renderObjects(graze);
+		renderObjects(enemy, g);
+		renderObjects(mybullet, g);
+		renderObjects(bullet, g);
+		renderObjects(explosion, g);
+		renderObjects(damage, g);
+		renderObjects(graze, g);
 	}
 
 	/**
@@ -190,13 +191,13 @@ public class ObjectPool
 	 *
 	 * @param object ゲームオブジェクトの配列
 	 */
-	private void renderObjects(GameObject[] object)
+	private void renderObjects(GameObject[] object, Graphics g)
 	{
 		for (int i = 0; i < object.length; i++)
 		{
 			if (object[i].active)
 			{
-				object[i].render();
+				object[i].render(g);
 			}
 		}
 	}

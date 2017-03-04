@@ -123,7 +123,7 @@ public class Play extends GameState
 	public void render(GameContainer gc, Graphics g)
 			throws SlickException
 	{
-		objectpool.renderAllObjects();
+		objectpool.renderAllObjects(g);
 		playdata.render(g);
 		g.drawRect(AREA_LEFT, AREA_TOP,
 				AREA_WIDTH, AREA_HEIGHT);

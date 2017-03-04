@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -94,7 +95,7 @@ public class Bullet extends GameObject
 		}
 	}
 
-	public void render()
+	public void render(Graphics g)
 	{
 		img[color].setRotation(angle + 90);
 		img[color].drawCentered(x, y);

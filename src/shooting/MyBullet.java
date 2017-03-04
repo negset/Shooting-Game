@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -41,7 +42,7 @@ public class MyBullet extends GameObject
 	/**
 	 * 描画を行う.
 	 */
-	public void render()
+	public void render(Graphics g)
 	{
 		img.drawCentered(x, y);
 	}

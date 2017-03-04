@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -41,7 +42,7 @@ public class Explosion extends GameObject
 		}
 	}
 
-	public void render()
+	public void render(Graphics g)
 	{
 		img[counter%11].drawCentered(x, y);
 	}

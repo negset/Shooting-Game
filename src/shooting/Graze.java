@@ -1,5 +1,6 @@
 package shooting;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -46,7 +47,7 @@ public class Graze extends GameObject
 		}
 	}
 
-	public void render()
+	public void render(Graphics g)
 	{
 		for (int i = 0; i < 3; i++)
 		{
