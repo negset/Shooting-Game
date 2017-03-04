@@ -152,6 +152,7 @@ public class Item extends GameObject
 	{
 		if (y > Play.AREA_TOP - 8)
 		{
+			img[type * 2].setRotation(Math.min(counter*20, 720));
 			img[type * 2].drawCentered(x, y);
 		}
 		else
