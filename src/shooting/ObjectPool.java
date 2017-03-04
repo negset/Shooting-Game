@@ -172,6 +172,7 @@ public class ObjectPool
 	 */
 	public void renderAllObjects()
 	{
+		renderObjects(item);
 		if (player.active)
 		{
 			player.render();
@@ -180,7 +181,6 @@ public class ObjectPool
 		renderObjects(mybullet);
 		renderObjects(bullet);
 		renderObjects(explosion);
-		renderObjects(item);
 		renderObjects(damage);
 		renderObjects(graze);
 	}
