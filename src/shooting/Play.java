@@ -2,6 +2,7 @@ package shooting;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -22,6 +23,22 @@ public class Play extends GameState
 	public static final int AREA_HEIGHT = 560;
 	public static final int AREA_CENTER_X = 280;
 	public static final int AREA_CENTER_Y = 300;
+
+	static Image frame0, frame1, frame2, frame3;
+	static
+	{
+		try
+		{
+			frame0 = new Image("res/frame0.jpg");
+			frame1 = new Image("res/frame1.jpg");
+			frame2 = new Image("res/frame2.jpg");
+			frame3 = new Image("res/frame3.jpg");
+		}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	ObjectPool objectpool;
 	Playdata playdata;
@@ -123,10 +140,13 @@ public class Play extends GameState
 	public void render(GameContainer gc, Graphics g)
 			throws SlickException
 	{
+		frame0.draw(0, 0);
+		frame1.draw(AREA_LEFT, 0);
+		frame2.draw(AREA_LEFT, AREA_BOTTOM);
+		frame3.draw(AREA_RIGHT, 0);
+
 		objectpool.renderAllObjects(g);
 		playdata.render(g);
-		g.drawRect(AREA_LEFT, AREA_TOP,
-				AREA_WIDTH, AREA_HEIGHT);
 
 		if (Playdata.isGameover)
 		{
