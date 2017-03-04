@@ -33,6 +33,8 @@ public class Damage extends GameObject
 	public void update()
 	{
 		y -= 2.5;
+		scale = 2.0f - (float)counter/25;
+
 		counter++;
 		if (counter > 50)
 		{
@@ -42,9 +44,9 @@ public class Damage extends GameObject
 
 	public void render(Graphics g)
 	{
-		scale = 2.0f - (float)counter/25;
-		img.setAlpha(1-(float)counter/50);
-		img.draw(x - 8 * scale, y - 8 * scale, scale);
+		g.setDrawMode(Graphics.MODE_ADD);
+		img.draw(x - width * scale / 2, y - width * scale / 2, scale);
+		g.setDrawMode(Graphics.MODE_NORMAL);
 	}
 
 	public void activate(float x, float y)
