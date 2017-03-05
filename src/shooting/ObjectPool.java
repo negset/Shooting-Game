@@ -173,6 +173,7 @@ public class ObjectPool
 	 */
 	public void renderAllObjects(Graphics g)
 	{
+		// 描画順に注意
 		renderObjects(item, g);
 		if (player.active)
 		{

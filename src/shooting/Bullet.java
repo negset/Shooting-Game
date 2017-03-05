@@ -64,8 +64,8 @@ public class Bullet extends GameObject
 		x += speedX;
 		y += speedY;
 
-		if (x < Play.AREA_LEFT || x > Play.AREA_RIGHT
-				|| y < Play.AREA_TOP || y > Play.AREA_BOTTOM)
+		if (x < Play.AREA_LEFT - width / 2 || x > Play.AREA_RIGHT + width / 2
+				|| y < Play.AREA_TOP - height / 2|| y > Play.AREA_BOTTOM + height / 2)
 		{
 			active = false;
 		}
@@ -77,9 +77,9 @@ public class Bullet extends GameObject
 	private void motion1()
 	{
 		float f;
-		if (counter < 10)
+		if (counter < 15)
 		{
-			f = 2.0f;
+			f = 2.5f;
 		}
 		else
 		{
@@ -88,8 +88,8 @@ public class Bullet extends GameObject
 		x += speedX * f;
 		y += speedY * f;
 
-		if (x < Play.AREA_LEFT || x > Play.AREA_RIGHT
-				|| y < Play.AREA_TOP || y > Play.AREA_BOTTOM)
+		if (x < Play.AREA_LEFT - width / 2 || x > Play.AREA_RIGHT + width / 2
+				|| y < Play.AREA_TOP - height / 2|| y > Play.AREA_BOTTOM + height / 2)
 		{
 			active = false;
 		}
