@@ -47,7 +47,7 @@ public class Font
 		loadGlyphData(path + "/glyph.dat");
 		sprite = new Image[glyphNum];
 		loadSheet(path);
-		setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		setColor(1.0f, 1.0f, 1.0f);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class Font
 			FileReader fr = new FileReader(path);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-			while((line=br.readLine()) != null)
+			while((line = br.readLine()) != null)
 			{
 				if (line.startsWith("fontName="))
 				{
