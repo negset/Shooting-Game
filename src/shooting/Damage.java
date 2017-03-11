@@ -5,12 +5,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * 敵がプレイヤーの弾を受けた時のダメージエフェクト.
+ * 敵機のダメージエフェクトのクラス.
  *
  * @author negset
  */
 public class Damage extends GameObject
 {
+	/** 画像 */
 	private static Image img;
 	static
 	{
@@ -18,18 +19,29 @@ public class Damage extends GameObject
 		{
 			img = new Image("res/damage.png");
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
+	/** フレームカウンタ */
 	private int counter;
+	/** 画像の描画倍率 */
 	private float scale;
 
+	/**
+	 * コンストラクタ
+	 */
 	Damage()
 	{
 		width = img.getWidth();
 		height = img.getHeight();
 	}
 
+	/**
+	 * ステップごとの更新.
+	 */
 	public void update()
 	{
 		y -= 2.5;
@@ -42,13 +54,23 @@ public class Damage extends GameObject
 		}
 	}
 
+	/**
+	 * ステップごとの描画処理.
+	 */
 	public void render(Graphics g)
 	{
+		// 加算合成
 		g.setDrawMode(Graphics.MODE_ADD);
 		img.draw(x - width * scale / 2, y - width * scale / 2, scale);
 		g.setDrawMode(Graphics.MODE_NORMAL);
 	}
 
+	/**
+	 * 初期化処理.
+	 *
+	 * @param x X座標
+	 * @param y Y座標
+	 */
 	public void activate(float x, float y)
 	{
 		active = true;

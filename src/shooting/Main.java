@@ -8,18 +8,25 @@ import org.newdawn.slick.SlickException;
 
 /**
  * メインクラス.
- * ウィンドウの生成及びゲーム画面の管理を行う.
+ * ウィンドウの生成及びゲームシーンの管理を行う.
  *
  * @author negset
  */
 public class Main extends BasicGame
 {
+	/** タイトル画面 */
 	Title title;
+	/** プレイ画面 */
 	Play play;
+	/** キー入力 */
 	KeyInput keyinput;
+	/** ゲームシーン */
 	private int state;
+	/** フレームレート */
 	private float fps;
-	private int framecnt;
+	/** フレームカウンタ */
+	private int frameCnt;
+	/** 経過時間換算用のタイマー */
 	private int timer;
 
 	/**
@@ -33,6 +40,9 @@ public class Main extends BasicGame
 		super(name);
 	}
 
+	/**
+	 * 初期化処理.
+	 */
 	public void init(GameContainer gc)
 			throws SlickException
 	{
@@ -40,9 +50,12 @@ public class Main extends BasicGame
 		play = new Play();
 		keyinput = new KeyInput();
 		state = 0;
-		framecnt = 0;
+		frameCnt = 0;
 	}
 
+	/**
+	 * ステップごとの更新.
+	 */
 	public void update(GameContainer gc, int delta)
 			throws SlickException
 	{
@@ -50,7 +63,6 @@ public class Main extends BasicGame
 		if (!gc.hasFocus()) return;
 
 		keyinput.update(gc);
-		calcFPS(delta);
 
 		switch(state)
 		{
@@ -74,13 +86,16 @@ public class Main extends BasicGame
 
 			default:
 		}
+
+		calcFPS(delta);
 	}
 
+	/**
+	 * ステップごとの描画処理.
+	 */
 	public void render(GameContainer gc, Graphics g)
 			throws SlickException
 	{
-		Text.drawString("FPS: " + String.format("%.2f", fps), 650, 580);
-
 		switch(state)
 		{
 			case 0:
@@ -93,6 +108,8 @@ public class Main extends BasicGame
 
 			default:
 		}
+
+		Text.drawString("FPS: " + String.format("%.2f", fps), 680, 580);
 	}
 
 	/**
@@ -102,31 +119,31 @@ public class Main extends BasicGame
 	 */
 	private void calcFPS(int delta)
 	{
-		framecnt++;
+		frameCnt++;
 		timer += delta;
-		if (framecnt % 60 == 0)
+		if (frameCnt % 60 == 0)
 		{
-			fps = 60000 / (float) timer;
+			fps = (float) 60000 / timer;
 			timer = 0;
 		}
 	}
 
 	/**
+	 * メインメソッド.
 	 * ウィンドウの生成を行う.
 	 */
 	public static void main(String[] args)
 	{
 		Main main = new Main("Shooting Game");
-		AppGameContainer app;
 		try
 		{
-			app = new AppGameContainer(main);
-			app.setDisplayMode(800, 600, false);
-			app.setTargetFrameRate(60);
-			app.setShowFPS(false);
-			app.setAlwaysRender(true);
-			app.setIcon("res/bullet0.png");
-			app.start();
+			AppGameContainer agc = new AppGameContainer(main);
+			agc.setDisplayMode(800, 600, false);
+			agc.setTargetFrameRate(60);
+			agc.setShowFPS(false);
+			agc.setAlwaysRender(true);
+			agc.setIcon("res/bullet0.png");
+			agc.start();
 		}
 		catch (SlickException e)
 		{

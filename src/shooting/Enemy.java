@@ -5,8 +5,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+/**
+ * 敵機のクラス.
+ *
+ * @author negset
+ */
 public class Enemy extends GameObject
 {
+	/** 画像 */
 	private static Image[] img;
 	static
 	{
@@ -22,13 +28,20 @@ public class Enemy extends GameObject
 		catch (SlickException e) {}
 	}
 
+	/** 動き */
 	int motion;
+	/** 種類 */
 	int type;
+	/** 体力 */
 	int hitpoint;
+	/** 倒したときに得られるアイテム */
 	int item;
 
+	/** フレームカウンタ */
 	private int counter;
+	/** 速度のX成分 */
 	private float speedX;
+	/** 速度のY成分 */
 	private float speedY;
 
 	/**
@@ -40,6 +53,9 @@ public class Enemy extends GameObject
 		height = img[0].getHeight();
 	}
 
+	/**
+	 * ステップごとの更新.
+	 */
 	public void update()
 	{
 		switch (motion)
@@ -65,6 +81,10 @@ public class Enemy extends GameObject
 		counter++;
 	}
 
+	/**
+	 * 動きその1
+	 * 真下に降下し,射出後に真上に上昇する.
+	 */
 	private void motion0()
 	{
 		int c = 50;
@@ -86,6 +106,10 @@ public class Enemy extends GameObject
 		active = y > -10;
 	}
 
+	/**
+	 * 動きその2
+	 * 真下に降下し,射出後に右斜め下に降下する.
+	 */
 	private void motion1()
 	{
 		int c = 50;
@@ -112,6 +136,10 @@ public class Enemy extends GameObject
 		active = y < Play.AREA_BOTTOM + 10;
 	}
 
+	/**
+	 * 動きその3
+	 * 真下に降下し,射出後に左斜め下に降下する.
+	 */
 	private void motion2()
 	{
 		int c = 50;
@@ -139,7 +167,7 @@ public class Enemy extends GameObject
 	}
 
 	/**
-	 * 描画を行う.
+	 * ステップごとの描画処理.
 	 */
 	public void render(Graphics g)
 	{
@@ -147,7 +175,7 @@ public class Enemy extends GameObject
 	}
 
 	/**
-	 * 自機の弾と衝突したときの動作
+	 * 自機の弾と衝突したときの動作.
 	 */
 	public void hit()
 	{
@@ -163,7 +191,7 @@ public class Enemy extends GameObject
 	}
 
 	/**
-	 * インスタンスを初期化する.
+	 * 初期化処理.
 	 *
 	 * @param x X座標
 	 * @param y Y座標

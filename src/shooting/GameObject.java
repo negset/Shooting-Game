@@ -3,8 +3,7 @@ package shooting;
 import org.newdawn.slick.Graphics;
 
 /**
- * ゲームオブジェクト抽象クラス
- * プレイヤー,弾,敵などのスーパークラス
+ * ゲームオブジェクトの抽象クラス.
  */
 public abstract class GameObject
 {
@@ -34,12 +33,12 @@ public abstract class GameObject
 	public int height;
 
 	/**
-	 * 動作を規定する.
+	 * ステップごとの更新.
 	 */
 	public abstract void update();
 
 	/**
-	 * 描画処理を行う.
+	 * ステップごとの描画処理.
 	 */
 	public abstract void render(Graphics g);
 }

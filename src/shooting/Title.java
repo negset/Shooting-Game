@@ -5,25 +5,17 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 /**
- * タイトル画面の動作・描画を行うクラス.
+ * タイトル画面の更新,描画を行うクラス.
  *
  * @author negset
  */
 public class Title extends GameState
 {
+	/** フレームカウンタ */
 	int counter;
 
 	/**
-	 * コンストラクタ
-	 */
-	Title()
-	{
-	}
-
-	/**
-	 * ゲーム画面の初期化.
-	 * リソースファイルの読み込み等を行う.
-	 * 起動時に1度だけ呼ばれる.
+	 * 初期化処理.
 	 */
 	public void init(GameContainer gc)
 			throws SlickException
@@ -33,8 +25,7 @@ public class Title extends GameState
 	}
 
 	/**
-	 * 動作を規定する.
-	 * 1ループにつき1回呼ばれる.
+	 * ステップごとの更新.
 	 */
 	public void update(GameContainer gc, int delta)
 			throws SlickException
@@ -48,8 +39,7 @@ public class Title extends GameState
 	}
 
 	/**
-	 * 描画処理を行う.
-	 * 1ループにつき1回呼ばれる.
+	 * ステップごとの描画処理.
 	 */
 	public void render(GameContainer gc, Graphics g)
 			throws SlickException

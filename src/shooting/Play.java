@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * プレイ画面の動作,描画を行うクラス.
+ * プレイ画面の更新,描画を行うクラス.
  *
  * @author negset
  */
@@ -24,6 +24,7 @@ public class Play extends GameState
 	public static final int AREA_CENTER_X = 280;
 	public static final int AREA_CENTER_Y = 300;
 
+	/** フレーム画像 */
 	static Image frame0, frame1, frame2, frame3;
 	static
 	{
@@ -40,11 +41,16 @@ public class Play extends GameState
 		}
 	}
 
+	/** オブジェクトプール */
 	ObjectPool objectpool;
+	/** プレイデータ */
 	Playdata playdata;
 
+	/** フレームカウンタ */
 	public static int counter;
+	/** ポーズフラグ */
 	private boolean isPause;
+	/** ポーズ時のカーソル位置 */
 	private int cursor;
 
 	/**
@@ -56,6 +62,9 @@ public class Play extends GameState
 		playdata = new Playdata();
 	}
 
+	/**
+	 * 初期化処理.
+	 */
 	public void init(GameContainer gc)
 			throws SlickException
 	{
@@ -68,8 +77,7 @@ public class Play extends GameState
 	}
 
 	/**
-	 * 動作を規定する.
-	 * 1ループにつき1回呼ばれる.
+	 * ステップごとの更新.
 	 */
 	public void update(GameContainer gc, int delta)
 			throws SlickException
@@ -135,7 +143,7 @@ public class Play extends GameState
 	}
 
 	/**
-	 * 描画処理を行う.
+	 * ステップごとの描画処理.
 	 */
 	public void render(GameContainer gc, Graphics g)
 			throws SlickException

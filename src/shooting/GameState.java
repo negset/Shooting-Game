@@ -4,10 +4,19 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+/**
+ * ゲームシーンの抽象クラス.
+ *
+ * @author negset
+ */
 public abstract class GameState
 {
+	/** シーン移行フラグ */
 	public boolean nextState;
 
+	/**
+	 * コンストラクタ
+	 */
 	GameState()
 	{
 		nextState = false;

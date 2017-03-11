@@ -4,7 +4,7 @@ import org.newdawn.slick.Graphics;
 
 /**
  * ゲームオブジェクトの管理クラス.
- * プレイヤーや弾,敵などのインスタンスを持ち,
+ * オブジェクトのインスタンスを持ち,
  * オブジェクト同士の相互作用(衝突処理など)を一括管理する.
  */
 public class ObjectPool
@@ -315,7 +315,7 @@ public class ObjectPool
 	public void getColision()
 	{
 		// 敵の弾とプレイヤーの衝突
-		if (player.active && !player.invincible)
+		if (player.active && !player.isInvincible)
 		{
 			for (int i = 0; i < bullet.length; i++)
 			{
@@ -332,9 +332,9 @@ public class ObjectPool
 					// あたり判定
 					else if (dist < DIST_PLAYER_TO_BULLET)
 					{
-						// 残機を減らす
+						// 残機を減らす.
 						Playdata.addLife(-1);
-						player.invincible = true;
+						player.isInvincible = true;
 						if (Playdata.isGameover)
 						{
 							newExplosion(player.x, player.y);
@@ -351,7 +351,7 @@ public class ObjectPool
 			}
 		}
 
-		//プレイヤーの弾と敵の衝突
+		// プレイヤーの弾と敵の衝突
 		for (int i = 0; i < enemy.length; i++)
 		{
 			if (enemy[i].active)
@@ -360,14 +360,14 @@ public class ObjectPool
 				{
 					if (mybullet[j].active)
 					{
-						//あたり判定
+						// あたり判定
 						if (getDistance(enemy[i], mybullet[j]) < DIST_ENEMY_TO_MYBULLET)
 						{
-							//敵の体力を減らす
+							// 敵の体力を減らす.
 							enemy[i].hit();
-							//ダメージエフェクト
+							// ダメージエフェクト
 							newDamage(mybullet[j].x, mybullet[j].y);
-							//弾消滅
+							// 弾消滅
 							mybullet[j].active = false;
 						}
 					}
@@ -376,7 +376,7 @@ public class ObjectPool
 		}
 
 		// 敵とプレイヤーの衝突
-		if (player.active && !player.invincible)
+		if (player.active && !player.isInvincible)
 		{
 			for (int i = 0; i < enemy.length; i++)
 			{
@@ -384,9 +384,9 @@ public class ObjectPool
 				{
 					if (getDistance(player, enemy[i]) < DIST_PLAYER_TO_ENEMY)
 					{
-						// 残機を減らす
+						// 残機を減らす.
 						Playdata.addLife(-1);
-						player.invincible = true;
+						player.isInvincible = true;
 						if (Playdata.isGameover)
 						{
 							newExplosion(player.x, player.y);

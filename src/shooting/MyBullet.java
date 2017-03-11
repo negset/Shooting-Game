@@ -4,8 +4,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * 自機が射出する弾のクラス.
+ *
+ * @author negset
+ */
 public class MyBullet extends GameObject
 {
+	/** 画像 */
 	private static Image img;
 	static
 	{
@@ -13,7 +19,10 @@ public class MyBullet extends GameObject
 		{
 			img = new Image("res/mybullet.png");
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -26,7 +35,7 @@ public class MyBullet extends GameObject
 	}
 
 	/**
-	 * インスタンスを更新する.
+	 * ステップごとの更新.
 	 */
 	public void update()
 	{
@@ -40,13 +49,19 @@ public class MyBullet extends GameObject
 	}
 
 	/**
-	 * 描画を行う.
+	 * ステップごとの描画処理.
 	 */
 	public void render(Graphics g)
 	{
 		img.drawCentered(x, y);
 	}
 
+	/**
+	 * 初期化処理.
+	 *
+	 * @param x X座標
+	 * @param y Y座標
+	 */
 	public void activate(float x, float y)
 	{
 		active = true;

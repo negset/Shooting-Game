@@ -1,17 +1,25 @@
 package shooting;
 
+/**
+ * 文字列の描画を行うクラス.
+ *
+ * @author negset
+ */
 public class Text
 {
+	/** 揃え位置を表す定数 */
 	public static final int LEFT_ALIGN = 0;
 	public static final int CENTER_ALIGN = 1;
 	public static final int RIGHT_ALIGN = 2;
 
+	/** 描画用フォント */
 	private static Font font;
 	static
 	{
 		font = new Font("res/font");
 		setDefaultColor();
 	}
+	/** 描画時の文字色 */
 	private static float r, g, b, a;
 
 	/**

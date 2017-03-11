@@ -5,8 +5,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+/**
+ * アイテムクラス.
+ *
+ * @author negset
+ */
 public class Item extends GameObject
 {
+	/** 画像 */
 	private static Image[] img;
 	static
 	{
@@ -22,9 +28,13 @@ public class Item extends GameObject
 		catch (SlickException e) {}
 	}
 
+	/** 回収先の自機 */
 	Player player;
+	/** 種類 */
 	int type;
+	/** 速度のY成分 */
 	float speedY;
+	/** フレームカウンタ */
 	int counter;
 	/** 自動回収フラグ */
 	boolean autoCollect;
@@ -44,7 +54,7 @@ public class Item extends GameObject
 	}
 
 	/**
-	 * 動作を規定する.
+	 * ステップごとの更新.
 	 */
 	public void update()
 	{
@@ -146,7 +156,7 @@ public class Item extends GameObject
 	}
 
 	/**
-	 * 描画処理を行う.
+	 * ステップごとの描画処理.
 	 */
 	public void render(Graphics g)
 	{
@@ -162,11 +172,11 @@ public class Item extends GameObject
 	}
 
 	/**
-	 * 初期化処理を行う.
+	 * 初期化処理.
 	 *
 	 * @param x X座標
 	 * @param y Y座標
-	 * @param type アイテムの種類
+	 * @param type 種類
 	 */
 	public void activate(float x, float y, int type)
 	{

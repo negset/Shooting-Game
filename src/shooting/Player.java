@@ -5,8 +5,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+/**
+ * 自機クラス.
+ *
+ * @author negset
+ */
 public class Player extends GameObject
 {
+	/** 画像 */
 	private static Image[] img;
 	static
 	{
@@ -16,17 +22,25 @@ public class Player extends GameObject
 			SpriteSheet ss = new SpriteSheet("res/player.png", 48, 48);
 			for (int i = 0; i < 8; i++)
 			{
-				img[i] = ss.getSubImage(i%4, i/4);
+				img[i] = ss.getSubImage(i % 4, i / 4);
 			}
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
-	float postx, posty;
+	/** 移動の速さ */
 	float speed;
-	boolean invincible;
+	/** 無敵フラグ */
+	boolean isInvincible;
+	/** 無敵時間計測用のカウンタ */
 	int invincibleCnt;
 
+	/**
+	 * コンストラクタ
+	 */
 	Player()
 	{
 		width = img[0].getWidth();
@@ -34,6 +48,9 @@ public class Player extends GameObject
 		speed = 6;
 	}
 
+	/**
+	 * ステップごとのステップごとの更新.
+	 */
 	public void update()
 	{
 		// 移動
@@ -66,15 +83,15 @@ public class Player extends GameObject
 			mx *= 0.44;
 			my *= 0.44;
 		}
-		postx = x + mx;
-		posty = y + my;
-		if (postx > Play.AREA_LEFT && postx < Play.AREA_RIGHT)
+		float postX = x + mx;
+		float postY = y + my;
+		if (postX > Play.AREA_LEFT && postX < Play.AREA_RIGHT)
 		{
-			x = postx;
+			x = postX;
 		}
-		if (posty > Play.AREA_TOP && posty < Play.AREA_BOTTOM)
+		if (postY > Play.AREA_TOP && postY < Play.AREA_BOTTOM)
 		{
-			y = posty;
+			y = postY;
 		}
 
 		// 弾丸の射出
@@ -83,19 +100,22 @@ public class Player extends GameObject
 			ObjectPool.newMyBullet(x, y);
 		}
 
-		if (invincible)
+		if (isInvincible)
 		{
 			if (++invincibleCnt > 240)
 			{
 				invincibleCnt = 0;
-				invincible = false;
+				isInvincible = false;
 			}
 		}
 	}
 
+	/**
+	 * ステップごとの描画処理.
+	 */
 	public void render(Graphics g)
 	{
-		if (invincible)
+		if (isInvincible)
 		{
 			if (Play.counter%10<5)
 			{
@@ -108,12 +128,18 @@ public class Player extends GameObject
 		}
 	}
 
+	/**
+	 * 初期化処理.
+	 *
+	 * @param x X座標
+	 * @param y Y座標
+	 */
 	public void activate(float x, float y)
 	{
 		active = true;
 		this.x = x;
 		this.y = y;
-		invincible = false;
+		isInvincible = false;
 		invincibleCnt = 0;
 	}
 }

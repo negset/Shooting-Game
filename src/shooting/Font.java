@@ -9,7 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 /**
- * フォントクラス
+ * フォントクラス.
  *
  * @author negset
  */

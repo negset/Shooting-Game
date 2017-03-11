@@ -4,9 +4,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * グレイズエフェクトのクラス.
+ *
+ * @author negset
+ */
 public class Graze extends GameObject
 {
-	static Image img;
+	/** 画像 */
+	private static Image img;
 	static
 	{
 		try
@@ -16,11 +22,22 @@ public class Graze extends GameObject
 		catch (SlickException e) {}
 	}
 
+	/** フレームカウンタ */
 	int counter;
-	float[] x, y;
+	/** 各パーティクルのX座標 */
+	float[] x;
+	/** 各パーティクルのY座標 */
+	float[] y;
+	/** 各パーティクルの飛ぶ方向 */
 	int[] angle;
-	float[] speedX, speedY;
+	/** 各パーティクルの速度のX成分 */
+	float[] speedX;
+	/** 各パーティクルの速度のY成分 */
+	float[] speedY;
 
+	/**
+	 * コンストラクタ
+	 */
 	Graze()
 	{
 		width = img.getWidth();
@@ -32,6 +49,9 @@ public class Graze extends GameObject
 		speedY = new float[3];
 	}
 
+	/**
+	 * ステップごとの更新.
+	 */
 	public void update()
 	{
 		for (int i = 0; i < 3; i++)
@@ -47,6 +67,9 @@ public class Graze extends GameObject
 		}
 	}
 
+	/**
+	 * ステップごとの描画処理.
+	 */
 	public void render(Graphics g)
 	{
 		for (int i = 0; i < 3; i++)
@@ -56,6 +79,12 @@ public class Graze extends GameObject
 		}
 	}
 
+	/**
+	 * 初期化処理.
+	 *
+	 * @param x X座標
+	 * @param y Y座標
+	 */
 	public void activate(float x, float y)
 	{
 		active = true;

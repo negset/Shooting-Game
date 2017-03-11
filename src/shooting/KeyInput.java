@@ -3,6 +3,11 @@ package shooting;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
+/**
+ * キーボード入力を受け取るクラス.
+ *
+ * @author negset
+ */
 public class KeyInput
 {
 	/**
@@ -19,6 +24,11 @@ public class KeyInput
 	private static int shift;
 	private static int escape;
 
+	/**
+	 * ステップごとの更新.
+	 *
+	 * @param gc ゲームコンテナ
+	 */
 	public void update(GameContainer gc)
 	{
 		z = getInput(gc, Input.KEY_Z);
@@ -31,6 +41,13 @@ public class KeyInput
 		escape = getInput(gc, Input.KEY_ESCAPE);
 	}
 
+	/**
+	 * キーの入力状態を取得する.
+	 *
+	 * @param gc ゲームコンテナ
+	 * @param key 状態を調べるキー
+	 * @return キーの状態
+	 */
 	private int getInput(GameContainer gc, int key)
 	{
 		if (gc.getInput().isKeyPressed(key))

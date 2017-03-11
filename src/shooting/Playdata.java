@@ -8,16 +8,31 @@ import java.io.IOException;
 
 import org.newdawn.slick.Graphics;
 
+/**
+ * プレイデータの管理や描画を行うクラス.
+ *
+ * @author negset
+ */
 public class Playdata
 {
+	/** 得点 */
 	static int score;
+	/** 最高得点 */
 	static int hiscore;
+	/** 残機 */
 	static int life;
+	/** 残りボム */
 	static int bomb;
+	/** パワー */
 	static int power;
+	/** グレイズ回数 */
 	static int graze;
+	/** ゲームオーバーフラグ */
 	static boolean isGameover;
 
+	/**
+	 * 初期化処理.
+	 */
 	public void init()
 	{
 		score = 0;
@@ -29,6 +44,11 @@ public class Playdata
 		isGameover = false;
 	}
 
+	/**
+	 * ステップごとの描画処理.
+	 *
+	 * @param g 描画先
+	 */
 	public void render(Graphics g)
 	{
 		Text.drawString("最高得点", 545, 80);
@@ -51,6 +71,11 @@ public class Playdata
 		Text.drawString(String.valueOf(graze), 650, 280);
 	}
 
+	/**
+	 * 得点を増やす.
+	 *
+	 * @param gain 増やす値
+	 */
 	public static void addScore(int gain)
 	{
 		score += gain;
@@ -60,6 +85,11 @@ public class Playdata
 		}
 	}
 
+	/**
+	 * 残機を増やす.
+	 *
+	 * @param gain 増やす値
+	 */
 	public static void addLife(int gain)
 	{
 		life += gain;
@@ -69,11 +99,21 @@ public class Playdata
 		}
 	}
 
+	/**
+	 * 残りボムを増やす.
+	 *
+	 * @param gain 増やす値
+	 */
 	public static void addBomb(int gain)
 	{
 		bomb += gain;
 	}
 
+	/**
+	 * パワーを増やす.
+	 *
+	 * @param gain 増やす値
+	 */
 	public static void addPower(int gain)
 	{
 		if (power < 128)
@@ -86,11 +126,17 @@ public class Playdata
 		}
 	}
 
+	/**
+	 * グレイズ回数を増やす.
+	 */
 	public static void addGraze()
 	{
 		graze++;
 	}
 
+	/**
+	 * 得点を保存する.
+	 */
 	static void saveScore()
 	{
 		DataOutputStream dout;
@@ -106,6 +152,9 @@ public class Playdata
 		}
 	}
 
+	/**
+	 * 得点を読み込む.
+	 */
 	static void loadScore()
 	{
 		DataInputStream din;

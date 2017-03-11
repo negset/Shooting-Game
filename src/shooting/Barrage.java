@@ -7,10 +7,10 @@ package shooting;
  */
 public class Barrage
 {
-	/** 狙い先 **/
+	/** 狙い先 */
 	private static Player player;
 
-	/** 狙い先を設定する **/
+	/** 狙い先を設定する */
 	public static void setPlayer(Player player)
 	{
 		Barrage.player = player;

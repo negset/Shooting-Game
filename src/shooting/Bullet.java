@@ -4,8 +4,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * 敵機が射出する弾のクラス.
+ *
+ * @author negset
+ */
 public class Bullet extends GameObject
 {
+	/** 画像 */
 	private static Image[] img;
 	static
 	{
@@ -17,17 +23,29 @@ public class Bullet extends GameObject
 				img[i] = new Image("res/bullet" + i + ".png");
 			}
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
-	float angle;	// X軸正の向きが0°,時計回り
+	/** 角度 */
+	float angle;		// X軸正の向きが0°で時計回り
+	/** 速さ */
 	float speed;
+	/** 動き */
 	int motion;
+	/** 種類 */
 	int type;
+	/** 色 */
 	int color;
+	/** グレイズ判定済みフラグ */
 	boolean isGrazed;
+	/** 速度のX成分 */
 	private float speedX;
+	/** 速度のY成分 */
 	private float speedY;
+	/** フレームカウンタ */
 	private int counter;
 
 	/**
@@ -39,6 +57,9 @@ public class Bullet extends GameObject
 		height = img[0].getHeight();
 	}
 
+	/**
+	 * ステップごとの更新.
+	 */
 	public void update()
 	{
 		switch (motion)
@@ -57,7 +78,7 @@ public class Bullet extends GameObject
 	}
 
 	/**
-	 * 等速で直進移動する.
+	 * 等速で直線移動する.
 	 */
 	private void motion0()
 	{
@@ -72,7 +93,7 @@ public class Bullet extends GameObject
 	}
 
 	/**
-	 * 射出直後のみ高速で直進移動する.
+	 * 射出直後のみ高速で直線移動する.
 	 */
 	private void motion1()
 	{
@@ -95,6 +116,9 @@ public class Bullet extends GameObject
 		}
 	}
 
+	/**
+	 * ステップごとの描画処理.
+	 */
 	public void render(Graphics g)
 	{
 		img[color].setRotation(angle + 90);
@@ -102,7 +126,7 @@ public class Bullet extends GameObject
 	}
 
 	/**
-	 * 弾の初期化を行う.
+	 * 初期化処理.
 	 *
 	 * @param x 開始X座標
 	 * @param y 開始Y座標
