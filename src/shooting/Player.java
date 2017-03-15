@@ -33,6 +33,10 @@ public class Player extends GameObject
 
 	/** 移動の速さ */
 	float speed;
+	/** 移動量のX成分 */
+	float deltaX;
+	/** 移動量のY成分 */
+	float deltaY;
 	/** 無敵フラグ */
 	boolean isInvincible;
 	/** 無敵時間計測用のカウンタ */
@@ -54,37 +58,38 @@ public class Player extends GameObject
 	public void update()
 	{
 		// 移動
-		float mx = 0, my = 0;
+		deltaX = 0;
+		deltaY = 0;
 		if (KeyInput.getLeft() >= 1)
 		{
-			mx -= speed;
+			deltaX -= speed;
 		}
 		if (KeyInput.getRight() >= 1)
 		{
-			mx += speed;
+			deltaX += speed;
 		}
 		if (KeyInput.getUp() >= 1)
 		{
-			my -= speed;
+			deltaY -= speed;
 		}
 		if (KeyInput.getDown() >= 1)
 		{
-			my += speed;
+			deltaY += speed;
 		}
 		// 斜め移動
-		if (mx * my != 0)
+		if (deltaX * deltaY != 0)
 		{
-			mx /= 1.414;
-			my /= 1.414;
+			deltaX /= 1.414;
+			deltaY /= 1.414;
 		}
 		// 低速移動
 		if (KeyInput.getShift() >= 1)
 		{
-			mx *= 0.44;
-			my *= 0.44;
+			deltaX *= 0.44;
+			deltaY *= 0.44;
 		}
-		float postX = x + mx;
-		float postY = y + my;
+		float postX = x + deltaX;
+		float postY = y + deltaY;
 		if (postX > Play.AREA_LEFT && postX < Play.AREA_RIGHT)
 		{
 			x = postX;

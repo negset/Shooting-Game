@@ -115,6 +115,10 @@ public class Item extends GameObject
 				{
 					x += (float) (distX * 0.1);
 					y += (float) (distY * 0.1);
+					if (distX * player.deltaX > 0)
+						x += player.deltaX;
+					if (distY * player.deltaY > 0)
+						y += player.deltaY;
 				}
 				// 自機が近くに来たら,自動接近フラグを立てる.
 				else if (dist < 50)
