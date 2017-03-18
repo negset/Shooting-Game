@@ -32,11 +32,11 @@ public class Barrage
 	public static void nWayShot(float x, float y, float angle, float speed,
 			int motion, int type, int color, int n, float range)
 	{
-		float bangle;
+		float bAngle;
 		for (int i = 0; i < n; i++)
 		{
-			bangle = angle - range / 2 + i * range / (n - 1);
-			ObjectPool.newBullet(x, y, bangle, speed, motion, type, color);
+			bAngle = angle - range / 2 + i * range / (n - 1);
+			ObjectPool.newBullet(x, y, bAngle, speed, motion, type, color);
 		}
 	}
 
