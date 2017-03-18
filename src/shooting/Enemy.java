@@ -120,7 +120,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 0, 3, 45);
+				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 3, 3, 45);
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -150,7 +150,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 0, 3, 45);
+				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 6, 3, 45);
 			speedY = 0;
 		}
 		else if (counter < c + 100)
