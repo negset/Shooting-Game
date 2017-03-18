@@ -28,14 +28,38 @@ public class Enemy extends GameObject
 		catch (SlickException e) {}
 	}
 
-	/** 動き */
-	int motion;
 	/** 種類 */
 	int type;
 	/** 体力 */
-	int hitpoint;
+	int hp;
+	/** 動き */
+	int motion;
+	/** 倒したときの得点 */
+	int score;
 	/** 倒したときに得られるアイテム */
 	int item;
+	/** ショットの種類 */
+	int sType;
+	/** ショットの回数 */
+	int sTimes;
+	/** ショットの間隔 */
+	int sInterval;
+	/** ショットの狙い方 */
+	int sAimType;
+	/** ショットの方向 */
+	float sAngle;
+	/** ショットの広がり */
+	int sRange;
+	/** ショットの列数 */
+	int sWays;
+	/** 弾の種類 */
+	int bType;
+	/** 弾の色 */
+	int bColor;
+	/** 弾の動き */
+	int bMotion;
+	/** 弾の速さ */
+	float bSpeed;
 
 	/** フレームカウンタ */
 	private int counter;
@@ -43,6 +67,10 @@ public class Enemy extends GameObject
 	private float speedX;
 	/** 速度のY成分 */
 	private float speedY;
+
+	private boolean startShoot;
+	private int nextShoot;
+	private int shootCnt;
 
 	/**
 	 * コンストラクタ
@@ -75,6 +103,11 @@ public class Enemy extends GameObject
 			default:
 		}
 
+		if (startShoot && counter >= nextShoot)
+		{
+			shoot();
+		}
+
 		x += speedX;
 		y += speedY;
 
@@ -95,7 +128,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 0, 3, 45);
+				startShoot = true;
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -120,7 +153,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 3, 3, 45);
+				startShoot = true;
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -150,7 +183,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				Barrage.nWayAimShot(x, y, 1.4f, 1, 0, 6, 3, 45);
+				startShoot = true;
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -166,6 +199,22 @@ public class Enemy extends GameObject
 		active = y < Play.AREA_BOTTOM + 10;
 	}
 
+	private void shoot()
+	{
+		if (sAimType == 2 || (shootCnt == 0 && sAimType == 1))
+		{
+			sAngle = ObjectPool.getAngleToPlayer(this);
+		}
+
+		Shot.shoot(x, y, sType, sAngle, sRange, sWays, bType, bColor, bMotion, bSpeed);
+
+		nextShoot = counter + sInterval;
+		shootCnt++;
+
+		if (shootCnt == sTimes)
+			startShoot = false;
+	}
+
 	/**
 	 * ステップごとの描画処理.
 	 */
@@ -179,13 +228,13 @@ public class Enemy extends GameObject
 	 */
 	public void hit()
 	{
-		hitpoint--;
+		hp--;
 
-		if (hitpoint <= 0)
+		if (hp <= 0)
 		{
-			Playdata.addScore(300);
+			Playdata.addScore(score);
 			ObjectPool.newExplosion(x, y);
-			ObjectPool.newItem(x, y);
+			ObjectPool.newItem(x, y, item);
 			active = false;
 		}
 	}
@@ -196,17 +245,36 @@ public class Enemy extends GameObject
 	 * @param x X座標
 	 * @param y Y座標
 	 */
-	public void activate(float x, float y)
+	public void activate(float x, float y, int type, int hp, int motion,
+			int score, int item, int sType, int sTimes, int sInterval,
+			int sAimType, float sAngle, int sRange, int sWays,
+			int bType, int bColor, int bMotion, float bSpeed)
 	{
 		active = true;
 		this.x = x;
 		this.y = y;
-		motion = Random.nextInt(3);
-		type = 0;
-		hitpoint = 3;
-		item = 0;
+		this.type = type;
+		this.hp = hp;
+		this.motion = motion;
+		this.score = score;
+		this.item = item;
+		this.sType = sType;
+		this.sTimes = sTimes;
+		this.sInterval = sInterval;
+		this.sAimType = sAimType;
+		this.sAngle = sAngle;
+		this.sRange = sRange;
+		this.sWays = sWays;
+		this.bType = bType;
+		this.bColor = bColor;
+		this.bMotion = bMotion;
+		this.bSpeed = bSpeed;
+
 		counter = 0;
 		speedX = 0;
 		speedY = 0;
+		startShoot = false;
+		nextShoot = 0;
+		shootCnt = 0;
 	}
 }

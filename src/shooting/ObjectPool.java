@@ -115,7 +115,6 @@ public class ObjectPool
 		deactivateObjects(graze);
 
 		player.activate(Play.AREA_CENTER_X, 400);
-		Barrage.setPlayer(player);
 	}
 
 	/**
@@ -216,13 +215,18 @@ public class ObjectPool
 		return -1;		// 見つからなかった
 	}
 
-	public static int newEnemy(float x, float y)
+	public static int newEnemy(float x, float y, int type, int hp, int motion,
+			int score, int item, int sType, int sTimes, int sInterval,
+			int sAimType, float sAngle, int sRange, int sWays,
+			int bType, int bColor, int bMotion, float bSpeed)
 	{
 		for (int i = 0; i < enemy.length; i++)
 		{
 			if (!enemy[i].active)
 			{
-				enemy[i].activate(x, y);
+				enemy[i].activate(x, y, type, hp, motion, score, item, sType,
+						sTimes, sInterval, sAimType, sAngle, sRange, sWays,
+						bType, bColor, bMotion, bSpeed);
 				return i;
 			}
 		}
@@ -255,13 +259,13 @@ public class ObjectPool
 		return -1;		//見つからなかった
 	}
 
-	public static int newItem(float x, float y)
+	public static int newItem(float x, float y, int type)
 	{
 		for (int i = 0; i < item.length; i++)
 		{
 			if (!item[i].active)
 			{
-				item[i].activate(x, y, Random.nextInt(6));
+				item[i].activate(x, y, type);
 				return i;
 			}
 		}
@@ -307,6 +311,11 @@ public class ObjectPool
 		double distX = Math.abs(o1.x - o2.x);
 		double distY = Math.abs(o1.y - o2.y);
 		return Math.sqrt(Math.pow(distX,2) + Math.pow(distY,2));
+	}
+
+	public static float getAngleToPlayer(GameObject o)
+	{
+		return (float) Math.toDegrees(Math.atan2(player.y - o.y, player.x - o.x));
 	}
 
 	/**

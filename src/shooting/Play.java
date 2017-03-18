@@ -88,11 +88,10 @@ public class Play extends GameState
 			objectpool.getColision();
 
 			// 敵の出現(仮)
-			if (counter % 100 == 50)
+			if (counter % 180 == 90)
 			{
-				ObjectPool.newEnemy(AREA_LEFT + 50
-						+ Random.nextInt(AREA_WIDTH - 100),
-						AREA_TOP - 24);
+				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, 0, 3, 10, 2,
+						90, 45, 3, 0, 0, 1, 2);
 			}
 
 			if (Playdata.isGameover)
