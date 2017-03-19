@@ -50,7 +50,7 @@ public class Enemy extends GameObject
 	 */
 	int sAimType;
 	/** ショットの方向 */
-	int sAngle1, sAngle2;
+	float sAngle1, sAngle2;
 	/** ショットの広がり */
 	int sRange;
 	/** ショットの列数 */
@@ -270,7 +270,7 @@ public class Enemy extends GameObject
 	 */
 	public void activate(float x, float y, int type, int hp, int motion,
 			int score, int item, int sType, int sTimes, int sInterval,
-			int sAimType, int sAngle1, int sAngle2, int sRange, int sWays,
+			int sAimType, float sAngle1, float sAngle2, int sRange, int sWays,
 			int bType, int bColor, int bMotion, float bSpeed1, float bSpeed2)
 	{
 		active = true;

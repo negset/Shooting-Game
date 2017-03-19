@@ -10,7 +10,7 @@ public class Shot
 	public static void single(float x, float y, float angle,
 			int bType, int bColor, int bMotion, float bSpeed)
 	{
-		ObjectPool.newBullet(x, y, angle, bSpeed, bMotion, bType, bColor);
+		ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, angle);
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class Shot
 		for (int i = 0; i < ways; i++)
 		{
 			bAngle = angle - range / 2 + i * range / (ways - 1);
-			ObjectPool.newBullet(x, y, bAngle, bSpeed, bMotion, bType, bColor);
+			ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, bAngle);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class Shot
 		for (int i = 0; i < ways; i++)
 		{
 			bAngle = angle + i * 360 / ways;
-			ObjectPool.newBullet(x, y, bAngle, bSpeed, bMotion, bType, bColor);
+			ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, bAngle);
 		}
 	}
 }

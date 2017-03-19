@@ -202,13 +202,14 @@ public class ObjectPool
 		}
 	}
 
-	public static int newBullet(float x, float y, float angle, float speed, int motion, int type, int color)
+	public static int newBullet(float x, float y, int type, int color,
+			int motion, float speed, float angle)
 	{
 		for (int i = 0; i < bullet.length; i++)
 		{
 			if (!bullet[i].active)
 			{
-				bullet[i].activate(x, y, angle, speed, motion, type, color);
+				bullet[i].activate(x, y, type, color, motion, speed, angle);
 				return i;
 			}
 		}
@@ -217,7 +218,7 @@ public class ObjectPool
 
 	public static int newEnemy(float x, float y, int type, int hp, int motion,
 			int score, int item, int sType, int sTimes, int sInterval,
-			int sAimType, int sAngle1, int sAngle2, int sRange, int sWays,
+			int sAimType, float sAngle1, float sAngle2, int sRange, int sWays,
 			int bType, int bColor, int bMotion, float bSpeed1, float bSpeed2)
 	{
 		for (int i = 0; i < enemy.length; i++)

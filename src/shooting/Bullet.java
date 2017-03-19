@@ -29,16 +29,19 @@ public class Bullet extends GameObject
 		}
 	}
 
-	/** 角度 */
-	float angle;		// X軸正の向きが0°で時計回り
-	/** 速さ */
-	float speed;
-	/** 動き */
-	int motion;
 	/** 種類 */
 	int type;
 	/** 色 */
 	int color;
+	/** 動き */
+	int motion;
+	/** 速さ */
+	float speed;
+	/**
+	 * 方向
+	 * X軸正の向きが0°で時計回り
+	 */
+	float angle;
 	/** グレイズ判定済みフラグ */
 	boolean isGrazed;
 	/** 速度のX成分 */
@@ -97,15 +100,7 @@ public class Bullet extends GameObject
 	 */
 	private void motion1()
 	{
-		float f;
-		if (counter < 15)
-		{
-			f = 2.5f;
-		}
-		else
-		{
-			f = 1.0f;
-		}
+		float f = counter < 15 ? 2.5f - (float) counter / 10 : 1f;
 		x += speedX * f;
 		y += speedY * f;
 
@@ -130,21 +125,24 @@ public class Bullet extends GameObject
 	 *
 	 * @param x 開始X座標
 	 * @param y 開始Y座標
-	 * @param angle 弾の向き
-	 * @param speed 弾速
-	 * @param motion 弾の動き
 	 * @param type 弾の種類
+	 * @param color 弾の色
+	 * @param motion 弾の動き
+	 * @param speed 弾速
+	 * @param angle 弾の方向
 	 */
-	public void activate(float x, float y, float angle, float speed, int motion, int type, int color)
+	public void activate(float x, float y, int type, int color,
+			int motion, float speed, float angle)
 	{
 		active = true;
 		this.x = x;
 		this.y = y;
-		this.angle = angle;
-		this.speed = speed;
-		this.motion = motion;
 		this.type = type;
 		this.color = color;
+		this.motion = motion;
+		this.speed = speed;
+		this.angle = angle;
+
 		counter = 0;
 		isGrazed = false;
 
