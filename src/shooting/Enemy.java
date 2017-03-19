@@ -46,11 +46,11 @@ public class Enemy extends GameObject
 	int sInterval;
 	/**
 	 * ショットの狙い方
-	 * 0:狙わない 1:自機狙い(固定) 2:自機狙い(常時) ~0or3~:初角からその値だけずらす
+	 * 0:狙わない 1:自機狙い(固定) 2:自機狙い(常時)
 	 */
 	int sAimType;
 	/** ショットの方向 */
-	float sAngle;
+	int sAngle1, sAngle2;
 	/** ショットの広がり */
 	int sRange;
 	/** ショットの列数 */
@@ -62,7 +62,7 @@ public class Enemy extends GameObject
 	/** 弾の動き */
 	int bMotion;
 	/** 弾の速さ */
-	float bSpeed;
+	float bSpeed1, bSpeed2;
 
 	/** フレームカウンタ */
 	private int counter;
@@ -106,13 +106,13 @@ public class Enemy extends GameObject
 			default:
 		}
 
+		x += speedX;
+		y += speedY;
+
 		if (startShoot && counter >= nextShoot)
 		{
 			shoot();
 		}
-
-		x += speedX;
-		y += speedY;
 
 		counter++;
 	}
@@ -206,29 +206,36 @@ public class Enemy extends GameObject
 	{
 		if (sAimType == 2 || (shootCnt == 0 && sAimType == 1))
 		{
-			sAngle = ObjectPool.getAngleToPlayer(this);
+			sAngle1 += ObjectPool.getAngleToPlayer(this);
 		}
 
 		switch (sType)
 		{
 			case 0:
-				Shot.single(x, y, sAngle, bType, bColor, bMotion, bSpeed);
+				Shot.single(x, y, sAngle1, bType, bColor, bMotion, bSpeed1);
 				break;
 
 			case 1:
-				Shot.nWay(x, y, sAngle, sRange, sWays, bType, bColor, bMotion, bSpeed);
+				Shot.nWay(x, y, sAngle1, sRange, sWays, bType, bColor, bMotion, bSpeed1);
 				break;
 
 			case 2:
-				Shot.round(x, y, sAngle, sRange, sWays, bType, bColor, bMotion, bSpeed);
+				Shot.round(x, y, sAngle1, sRange, sWays, bType, bColor, bMotion, bSpeed1);
 				break;
 
 			default:
 		}
 
-		nextShoot = counter + sInterval;
 		if (++shootCnt == sTimes)
+		{
 			startShoot = false;
+			return;
+		}
+
+		sAngle1 += sAngle2;
+		bSpeed1 += bSpeed2;
+
+		nextShoot = counter + sInterval;
 	}
 
 	/**
@@ -263,8 +270,8 @@ public class Enemy extends GameObject
 	 */
 	public void activate(float x, float y, int type, int hp, int motion,
 			int score, int item, int sType, int sTimes, int sInterval,
-			int sAimType, float sAngle, int sRange, int sWays,
-			int bType, int bColor, int bMotion, float bSpeed)
+			int sAimType, int sAngle1, int sAngle2, int sRange, int sWays,
+			int bType, int bColor, int bMotion, float bSpeed1, float bSpeed2)
 	{
 		active = true;
 		this.x = x;
@@ -278,13 +285,15 @@ public class Enemy extends GameObject
 		this.sTimes = sTimes;
 		this.sInterval = sInterval;
 		this.sAimType = sAimType;
-		this.sAngle = sAngle;
+		this.sAngle1 = sAngle1;
+		this.sAngle2 = sAngle2;
 		this.sRange = sRange;
 		this.sWays = sWays;
 		this.bType = bType;
 		this.bColor = bColor;
 		this.bMotion = bMotion;
-		this.bSpeed = bSpeed;
+		this.bSpeed1 = bSpeed1;
+		this.bSpeed2 = bSpeed2;
 
 		counter = 0;
 		speedX = 0;
