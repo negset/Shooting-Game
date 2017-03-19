@@ -44,7 +44,10 @@ public class Enemy extends GameObject
 	int sTimes;
 	/** ショットの間隔 */
 	int sInterval;
-	/** ショットの狙い方 */
+	/**
+	 * ショットの狙い方
+	 * 0:狙わない 1:自機狙い(固定) 2:自機狙い(常時) ~0or3~:初角からその値だけずらす
+	 */
 	int sAimType;
 	/** ショットの方向 */
 	float sAngle;
@@ -206,12 +209,25 @@ public class Enemy extends GameObject
 			sAngle = ObjectPool.getAngleToPlayer(this);
 		}
 
-		Shot.shoot(x, y, sType, sAngle, sRange, sWays, bType, bColor, bMotion, bSpeed);
+		switch (sType)
+		{
+			case 0:
+				Shot.single(x, y, sAngle, bType, bColor, bMotion, bSpeed);
+				break;
+
+			case 1:
+				Shot.nWay(x, y, sAngle, sRange, sWays, bType, bColor, bMotion, bSpeed);
+				break;
+
+			case 2:
+				Shot.round(x, y, sAngle, sRange, sWays, bType, bColor, bMotion, bSpeed);
+				break;
+
+			default:
+		}
 
 		nextShoot = counter + sInterval;
-		shootCnt++;
-
-		if (shootCnt == sTimes)
+		if (++shootCnt == sTimes)
 			startShoot = false;
 	}
 
