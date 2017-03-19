@@ -19,7 +19,7 @@ public class Enemy extends GameObject
 		try
 		{
 			img = new Image[8];
-			SpriteSheet ss = new SpriteSheet("res/enemy.png", 48, 48);
+			SpriteSheet ss = new SpriteSheet("res/img/enemy.png", 48, 48);
 			for (int i = 0; i < 8; i++)
 			{
 				img[i] = ss.getSubImage(i % 4, i / 4);

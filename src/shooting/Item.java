@@ -19,7 +19,7 @@ public class Item extends GameObject
 		try
 		{
 			img = new Image[13];
-			SpriteSheet ss = new SpriteSheet("res/item.png", 16, 16);
+			SpriteSheet ss = new SpriteSheet("res/img/item.png", 16, 16);
 			for (int i = 0; i < 13; i++)
 			{
 				img[i] = ss.getSubImage(i, 0);

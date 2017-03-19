@@ -17,7 +17,7 @@ public class Graze extends GameObject
 	{
 		try
 		{
-			img = new Image("res/graze.png");
+			img = new Image("res/img/graze.png");
 		}
 		catch (SlickException e) {}
 	}

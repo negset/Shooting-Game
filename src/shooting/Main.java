@@ -142,7 +142,7 @@ public class Main extends BasicGame
 			agc.setTargetFrameRate(60);
 			agc.setShowFPS(false);
 			agc.setAlwaysRender(true);
-			agc.setIcon("res/bullet0.png");
+			agc.setIcon("res/img/bullet0.png");
 			agc.start();
 		}
 		catch (SlickException e)

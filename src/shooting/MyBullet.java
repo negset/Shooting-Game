@@ -17,7 +17,7 @@ public class MyBullet extends GameObject
 	{
 		try
 		{
-			img = new Image("res/mybullet.png");
+			img = new Image("res/img/mybullet.png");
 		}
 		catch (SlickException e)
 		{

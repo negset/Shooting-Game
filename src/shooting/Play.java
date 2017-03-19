@@ -30,10 +30,10 @@ public class Play extends GameState
 	{
 		try
 		{
-			frame0 = new Image("res/frame0.jpg");
-			frame1 = new Image("res/frame1.jpg");
-			frame2 = new Image("res/frame2.jpg");
-			frame3 = new Image("res/frame3.jpg");
+			frame0 = new Image("res/img/frame0.jpg");
+			frame1 = new Image("res/img/frame1.jpg");
+			frame2 = new Image("res/img/frame2.jpg");
+			frame3 = new Image("res/img/frame3.jpg");
 		}
 		catch (SlickException e)
 		{
@@ -90,8 +90,8 @@ public class Play extends GameState
 			// 敵の出現(仮)
 			if (counter % 180 == 90)
 			{
-				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, (counter-90)/180, 5, 6, 0,
-						90, 0, 45, 4, 0, 0, 1, 2, 0f);
+				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, counter/180, 5, 6, 0,
+						80, 10, 45, 4, 0, 0, 1, 2, 0f);
 			}
 
 			if (Playdata.isGameover)

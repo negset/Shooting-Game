@@ -17,7 +17,7 @@ public class Damage extends GameObject
 	{
 		try
 		{
-			img = new Image("res/damage.png");
+			img = new Image("res/img/damage.png");
 		}
 		catch (SlickException e)
 		{

@@ -19,7 +19,7 @@ public class Explosion extends GameObject
 		try
 		{
 			img = new Image[11];
-			SpriteSheet ss = new SpriteSheet("res/explosion.png", 80, 80);
+			SpriteSheet ss = new SpriteSheet("res/img/explosion.png", 80, 80);
 			for (int i = 0; i < 11; i++)
 			{
 				img[i] = ss.getSubImage(i % 5, i / 5);
