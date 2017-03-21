@@ -59,7 +59,7 @@ public class Main extends BasicGame
 	public void update(GameContainer gc, int delta)
 			throws SlickException
 	{
-		// 非フォーカス時は処理を行わない.
+		// 非フォーカス時は更新しない.
 		if (!gc.hasFocus()) return;
 
 		keyinput.update(gc);

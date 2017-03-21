@@ -101,11 +101,11 @@ public class ObjectPool
 	}
 
 	/**
-	 * 初期化処理
-	 * 全てのインスタンスを無効にし,自機のみ有効にする.
+	 * 初期化処理.
 	 */
 	public void init()
 	{
+		// 全てのインスタンスを無効にし,自機のみ有効にする.
 		deactivateObjects(bullet);
 		deactivateObjects(mybullet);
 		deactivateObjects(enemy);
@@ -113,7 +113,6 @@ public class ObjectPool
 		deactivateObjects(item);
 		deactivateObjects(damage);
 		deactivateObjects(graze);
-
 		player.activate(Play.AREA_CENTER_X, 400);
 	}
 
@@ -126,15 +125,12 @@ public class ObjectPool
 	{
 		for (int i = 0; i < object.length; i++)
 		{
-			if (object[i].active)
-			{
-				object[i].active = false;
-			}
+			object[i].active = false;
 		}
 	}
 
 	/**
-	 * 全てのオブジェクトのステップごとの動作を行う.
+	 * 全てのオブジェクトのステップごとの更新を行う.
 	 */
 	public void updateAllObjects()
 	{
@@ -152,7 +148,7 @@ public class ObjectPool
 	}
 
 	/**
-	 * 配列内のインスタンスのうち,有効な物のみを動作させる.
+	 * 配列内のインスタンスのうち,有効な物のみを更新する.
 	 *
 	 * @param object ゲームオブジェクトの配列
 	 */
@@ -172,7 +168,6 @@ public class ObjectPool
 	 */
 	public void renderAllObjects(Graphics g)
 	{
-		// 描画順に注意
 		renderObjects(item, g);
 		if (player.active)
 		{
