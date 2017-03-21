@@ -85,8 +85,8 @@ public class Player extends GameObject
 		// 低速移動
 		if (KeyInput.getShift() >= 1)
 		{
-			deltaX *= 0.44;
-			deltaY *= 0.44;
+			deltaX *= 0.4;
+			deltaY *= 0.4;
 		}
 		float postX = x + deltaX;
 		float postY = y + deltaY;
