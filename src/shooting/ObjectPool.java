@@ -346,7 +346,6 @@ public class ObjectPool
 						{
 							// 残機を減らす.
 							Playdata.addLife(-1);
-							player.isInvincible = true;
 							if (Playdata.isGameover)
 							{
 								newExplosion(player.x, player.y);
@@ -355,6 +354,7 @@ public class ObjectPool
 								// スコア保存
 								Playdata.saveScore();
 							}
+							player.isInvincible = true;
 						}
 						// 弾消滅
 						bullet[i].active = false;
