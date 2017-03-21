@@ -299,6 +299,16 @@ public class ObjectPool
 		return -1;		//見つからなかった
 	}
 
+	public static float getPlayerX()
+	{
+		return player.x;
+	}
+
+	public static float getPlayerY()
+	{
+		return player.y;
+	}
+
 	/**
 	 * オブジェクト間の距離を返す.
 	 *
@@ -312,11 +322,6 @@ public class ObjectPool
 		double distX = Math.abs(o1.x - o2.x);
 		double distY = Math.abs(o1.y - o2.y);
 		return Math.sqrt(Math.pow(distX,2) + Math.pow(distY,2));
-	}
-
-	public static double getAngleToPlayer(GameObject o)
-	{
-		return Math.toDegrees(Math.atan2(player.y - o.y, player.x - o.x));
 	}
 
 	/**

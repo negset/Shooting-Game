@@ -29,40 +29,17 @@ public class Enemy extends GameObject
 	}
 
 	/** 種類 */
-	int type;
+	private int type;
 	/** 体力 */
-	int hp;
+	private int hp;
 	/** 動き */
-	int motion;
+	private int motion;
 	/** 倒したときの得点 */
-	int score;
+	private int score;
 	/** 倒したときに得られるアイテム */
-	int item;
-	/** ショットの種類 */
-	int sType;
-	/** ショットの回数 */
-	int sTimes;
-	/** ショットの間隔 */
-	int sInterval;
-	/**
-	 * ショットの狙い方
-	 * 0:狙わない 1:自機狙い(固定) 2:自機狙い(常時)
-	 */
-	int sAimType;
-	/** ショットの方向 */
-	float sAngle1, sAngle2;
-	/** ショットの広がり */
-	int sRange;
-	/** ショットの列数 */
-	int sWays;
-	/** 弾の種類 */
-	int bType;
-	/** 弾の色 */
-	int bColor;
-	/** 弾の動き */
-	int bMotion;
-	/** 弾の速さ */
-	float bSpeed1, bSpeed2;
+	private int item;
+	/***/
+	private Shot shot;
 
 	/** フレームカウンタ */
 	private int counter;
@@ -70,10 +47,8 @@ public class Enemy extends GameObject
 	private float speedX;
 	/** 速度のY成分 */
 	private float speedY;
-
-	private boolean startShoot;
-	private int nextShoot;
-	private int shootCnt;
+	/***/
+	private boolean isShooting;
 
 	/**
 	 * コンストラクタ
@@ -105,13 +80,13 @@ public class Enemy extends GameObject
 
 			default:
 		}
-
 		x += speedX;
 		y += speedY;
 
-		if (startShoot && counter >= nextShoot)
+		if (isShooting)
 		{
-			shoot();
+			shot.fire(x, y);
+			isShooting = !shot.isEnd;
 		}
 
 		counter++;
@@ -131,7 +106,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				startShoot = true;
+				isShooting = true;
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -156,7 +131,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				startShoot = true;
+				isShooting = true;
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -186,7 +161,7 @@ public class Enemy extends GameObject
 		else if (counter < c + 75)
 		{
 			if (counter == c + 50)
-				startShoot = true;
+				isShooting = true;
 			speedY = 0;
 		}
 		else if (counter < c + 100)
@@ -200,42 +175,6 @@ public class Enemy extends GameObject
 			speedY = 2.5f;
 		}
 		active = y < Play.AREA_BOTTOM + 10;
-	}
-
-	private void shoot()
-	{
-		if (sAimType == 2 || (shootCnt == 0 && sAimType == 1))
-		{
-			sAngle1 += ObjectPool.getAngleToPlayer(this);
-		}
-
-		switch (sType)
-		{
-			case 0:
-				Shot.single(x, y, sAngle1, bType, bColor, bMotion, bSpeed1);
-				break;
-
-			case 1:
-				Shot.nWay(x, y, sAngle1, sRange, sWays, bType, bColor, bMotion, bSpeed1);
-				break;
-
-			case 2:
-				Shot.round(x, y, sAngle1, sRange, sWays, bType, bColor, bMotion, bSpeed1);
-				break;
-
-			default:
-		}
-
-		if (++shootCnt == sTimes)
-		{
-			startShoot = false;
-			return;
-		}
-
-		sAngle1 += sAngle2;
-		bSpeed1 += bSpeed2;
-
-		nextShoot = counter + sInterval;
 	}
 
 	/**
@@ -281,25 +220,12 @@ public class Enemy extends GameObject
 		this.motion = motion;
 		this.score = score;
 		this.item = item;
-		this.sType = sType;
-		this.sTimes = sTimes;
-		this.sInterval = sInterval;
-		this.sAimType = sAimType;
-		this.sAngle1 = sAngle1;
-		this.sAngle2 = sAngle2;
-		this.sRange = sRange;
-		this.sWays = sWays;
-		this.bType = bType;
-		this.bColor = bColor;
-		this.bMotion = bMotion;
-		this.bSpeed1 = bSpeed1;
-		this.bSpeed2 = bSpeed2;
+		shot = new Shot(sType, sTimes, sInterval, sAimType, sAngle1, sAngle2,
+				sRange, sWays, bType, bColor, bMotion, bSpeed1, bSpeed2);
 
 		counter = 0;
 		speedX = 0;
 		speedY = 0;
-		startShoot = false;
-		nextShoot = 0;
-		shootCnt = 0;
+		isShooting = false;
 	}
 }
