@@ -114,7 +114,7 @@ public class Item extends GameObject
 				else if (autoFollow)
 				{
 					double pv = Math.sqrt(Math.pow(player.deltaX, 2) + Math.pow(player.deltaY, 2));
-					double v = pv > 0 ? pv + 0.2 : 2;
+					double v = pv > 0 ? pv + 0.25 : 2.5;
 					x += (float) (distX * v / dist);
 					y += (float) (distY * v / dist);
 				}
@@ -164,7 +164,7 @@ public class Item extends GameObject
 	{
 		if (y > Play.AREA_TOP - 8)
 		{
-			img[type * 2].setRotation(Math.min(counter*25, 1080));
+			img[type * 2].setRotation(Math.min(counter * 30, 1080));
 			img[type * 2].drawCentered(x, y);
 		}
 		else
