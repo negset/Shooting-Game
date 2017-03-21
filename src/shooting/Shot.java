@@ -76,6 +76,9 @@ public class Shot
 					starRound(x, y, angle1, range, ways, bType, bColor, bMotion, bSpeed1);
 					break;
 
+				case 4:
+					massedRound(x, y, angle1, range, ways, bType, bColor, bMotion, bSpeed1);
+					break;
 				default:
 			}
 
@@ -134,8 +137,23 @@ public class Shot
 			round(x, y, angle, ways, bType, bColor, bMotion, bSpeed);
 		else
 		{
-			round(x, y, angle-(float)range*shootCnt/times, ways, bType, bColor, bMotion, bSpeed);
-			round(x, y, angle+(float)range*shootCnt/times, ways, bType, bColor, bMotion, bSpeed);
+			float bAngle1, bAngle2;
+			for (int i = 0; i < ways; i++)
+			{
+				bAngle1 = angle + (float) i * 360 / ways - (float) range / 2 * shootCnt / times;
+				bAngle2 = angle + (float) i * 360 / ways + (float) range / 2 * shootCnt / times;
+				ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, bAngle1);
+				ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, bAngle2);
+			}
+		}
+	}
+
+	private void massedRound(float x, float y, float angle, int range,
+			int ways, int bType, int bColor, int bMotion, float bSpeed)
+	{
+		for (int i = 0; i < range; i += 5)
+		{
+			round(x, y, angle + i, ways, bType, bColor, bMotion, bSpeed);
 		}
 	}
 }
