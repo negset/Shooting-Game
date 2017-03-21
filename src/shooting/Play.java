@@ -87,15 +87,11 @@ public class Play extends GameState
 			objectpool.updateAllObjects();
 			objectpool.getColision();
 
-			/* 敵の出現(仮)
+			// 敵の出現(仮)
 			if (counter % 180 == 90)
 			{
-				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, counter/180%3, 5, 6, 2,
-						0, 10, 45, 4, 0, 0, 1, 1, 0.5f);
-			}*/
-			if (counter % 20 == 0)
-			{
-				ObjectPool.newItem(ObjectPool.getPlayerX(), 200, 0);
+				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, 3, 15, 6, 0,
+						90, 0, 7, 12, 0, 0, 1, 2f, 0f);
 			}
 
 			if (Playdata.isGameover)

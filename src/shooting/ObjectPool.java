@@ -27,7 +27,7 @@ public class ObjectPool
 	private static Graze[] graze;
 
 	/** 最大数の設定 */
-	static final int BULLET_MAX = 100;
+	static final int BULLET_MAX = 1000;
 	static final int MYBULLET_MAX = 20;
 	static final int ENEMY_MAX = 50;
 	static final int EXPLOSION_MAX = 50;

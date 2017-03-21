@@ -1,7 +1,7 @@
 package shooting;
 
 /**
- * 弾幕の生成を行うクラス.
+ * ショットクラス.
  *
  * @author negset
  */
@@ -69,7 +69,11 @@ public class Shot
 					break;
 
 				case 2:
-					Shot.round(x, y, angle1, range, ways, bType, bColor, bMotion, bSpeed1);
+					Shot.round(x, y, angle1, ways, bType, bColor, bMotion, bSpeed1);
+					break;
+
+				case 3:
+					starRound(x, y, angle1, range, ways, bType, bColor, bMotion, bSpeed1);
 					break;
 
 				default:
@@ -104,28 +108,34 @@ public class Shot
 	public static void nWay(float x, float y, float angle, int range,
 			int ways, int bType, int bColor, int bMotion, float bSpeed)
 	{
-		if (ways < 2)
-		{
-			single(x, y, angle, bType, bColor, bMotion, bSpeed);
-			return;
-		}
-
 		float bAngle;
 		for (int i = 0; i < ways; i++)
 		{
-			bAngle = angle - range / 2 + i * range / (ways - 1);
+			bAngle = angle - (float) range / 2 + (float) i * range / (ways - 1);
 			ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, bAngle);
 		}
 	}
 
-	public static void round(float x, float y, float angle, int range,
+	public static void round(float x, float y, float angle,
 			int ways, int bType, int bColor, int bMotion, float bSpeed)
 	{
 		float bAngle;
 		for (int i = 0; i < ways; i++)
 		{
-			bAngle = angle + i * 360 / ways;
+			bAngle = angle + (float) i * 360 / ways;
 			ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, bAngle);
+		}
+	}
+
+	public void starRound(float x, float y, float angle, int range,
+			int ways, int bType, int bColor, int bMotion, float bSpeed)
+	{
+		if (shootCnt == 0)
+			round(x, y, angle, ways, bType, bColor, bMotion, bSpeed);
+		else
+		{
+			round(x, y, angle-(float)range*shootCnt/times, ways, bType, bColor, bMotion, bSpeed);
+			round(x, y, angle+(float)range*shootCnt/times, ways, bType, bColor, bMotion, bSpeed);
 		}
 	}
 }
