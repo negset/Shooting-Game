@@ -61,15 +61,15 @@ public class Shot
 			switch (type)
 			{
 				case 0:
-					Shot.single(x, y, angle1, bType, bColor, bMotion, bSpeed1);
+					single(x, y, angle1, bType, bColor, bMotion, bSpeed1);
 					break;
 
 				case 1:
-					Shot.nWay(x, y, angle1, range, ways, bType, bColor, bMotion, bSpeed1);
+					nWay(x, y, angle1, range, ways, bType, bColor, bMotion, bSpeed1);
 					break;
 
 				case 2:
-					Shot.round(x, y, angle1, ways, bType, bColor, bMotion, bSpeed1);
+					round(x, y, angle1, ways, bType, bColor, bMotion, bSpeed1);
 					break;
 
 				case 3:
@@ -99,13 +99,13 @@ public class Shot
 		return Math.toDegrees(Math.atan2(py - y, px - x));
 	}
 
-	public static void single(float x, float y, float angle,
+	private void single(float x, float y, float angle,
 			int bType, int bColor, int bMotion, float bSpeed)
 	{
 		ObjectPool.newBullet(x, y, bType, bColor, bMotion, bSpeed, angle);
 	}
 
-	public static void nWay(float x, float y, float angle, int range,
+	private void nWay(float x, float y, float angle, int range,
 			int ways, int bType, int bColor, int bMotion, float bSpeed)
 	{
 		float bAngle;
@@ -116,7 +116,7 @@ public class Shot
 		}
 	}
 
-	public static void round(float x, float y, float angle,
+	private void round(float x, float y, float angle,
 			int ways, int bType, int bColor, int bMotion, float bSpeed)
 	{
 		float bAngle;
@@ -127,7 +127,7 @@ public class Shot
 		}
 	}
 
-	public void starRound(float x, float y, float angle, int range,
+	private void starRound(float x, float y, float angle, int range,
 			int ways, int bType, int bColor, int bMotion, float bSpeed)
 	{
 		if (shootCnt == 0)

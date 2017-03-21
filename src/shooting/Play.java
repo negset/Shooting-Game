@@ -90,7 +90,7 @@ public class Play extends GameState
 			// 敵の出現(仮)
 			if (counter % 180 == 90)
 			{
-				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, 3, 15, 6, 0,
+				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, 3, 6, 6, 0,
 						90, 0, 7, 12, 0, 0, 1, 2f, 0f);
 			}
 
