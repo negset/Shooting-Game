@@ -113,12 +113,10 @@ public class Item extends GameObject
 				// 自動接近時の動作
 				else if (autoFollow)
 				{
-					x += (float) (distX * 0.1);
-					y += (float) (distY * 0.1);
-					if (distX * player.deltaX > 0)
-						x += player.deltaX;
-					if (distY * player.deltaY > 0)
-						y += player.deltaY;
+					double pv = Math.sqrt(Math.pow(player.deltaX, 2) + Math.pow(player.deltaY, 2));
+					double v = pv > 0 ? pv + 0.2 : 2;
+					x += (float) (distX * v / dist);
+					y += (float) (distY * v / dist);
 				}
 				// 自機が近くに来たら,自動接近フラグを立てる.
 				else if (dist < 50)
@@ -148,7 +146,7 @@ public class Item extends GameObject
 	{
 		y += speedY;
 		// 方向転換
-		if (counter > 60 && counter < 100)
+		if (counter > 60 && counter < 60 + 40)
 		{
 			speedY += 0.1;
 		}
@@ -166,7 +164,7 @@ public class Item extends GameObject
 	{
 		if (y > Play.AREA_TOP - 8)
 		{
-			img[type * 2].setRotation(Math.min(counter*20, 720));
+			img[type * 2].setRotation(Math.min(counter*25, 1080));
 			img[type * 2].drawCentered(x, y);
 		}
 		else
