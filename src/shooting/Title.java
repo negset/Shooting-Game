@@ -36,6 +36,10 @@ public class Title extends GameState
 		{
 			nextState = true;
 		}
+		else if (KeyInput.getEscape() == 1)
+		{
+			gc.exit();
+		}
 	}
 
 	/**
