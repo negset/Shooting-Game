@@ -324,8 +324,8 @@ public class ObjectPool
 	 */
 	public void getColision()
 	{
-		// 敵の弾とプレイヤーの衝突
-		if (player.active && !player.isInvincible)
+		// 敵機の弾と自機の衝突
+		if (player.active)
 		{
 			for (int i = 0; i < bullet.length; i++)
 			{
@@ -342,18 +342,20 @@ public class ObjectPool
 					// あたり判定
 					else if (dist < DIST_PLAYER_TO_BULLET)
 					{
-						// 残機を減らす.
-						Playdata.addLife(-1);
-						player.isInvincible = true;
-						if (Playdata.isGameover)
+						if (!player.isInvincible)
 						{
-							newExplosion(player.x, player.y);
-							player.active = false;
+							// 残機を減らす.
+							Playdata.addLife(-1);
+							player.isInvincible = true;
+							if (Playdata.isGameover)
+							{
+								newExplosion(player.x, player.y);
+								player.active = false;
 
-							// スコア保存
-							Playdata.saveScore();
+								// スコア保存
+								Playdata.saveScore();
+							}
 						}
-
 						// 弾消滅
 						bullet[i].active = false;
 					}
@@ -361,7 +363,7 @@ public class ObjectPool
 			}
 		}
 
-		// プレイヤーの弾と敵の衝突
+		// 自機の弾と敵機の衝突
 		for (int i = 0; i < enemy.length; i++)
 		{
 			if (enemy[i].active)
@@ -385,7 +387,7 @@ public class ObjectPool
 			}
 		}
 
-		// 敵とプレイヤーの衝突
+		// 敵機と自機の衝突
 		if (player.active && !player.isInvincible)
 		{
 			for (int i = 0; i < enemy.length; i++)
