@@ -114,7 +114,7 @@ public class Item extends GameObject
 				else if (autoFollow)
 				{
 					double pv = Math.sqrt(Math.pow(player.deltaX, 2) + Math.pow(player.deltaY, 2));
-					double v = pv > 0 ? pv + 0.25 : 2.5;
+					double v = pv > 0 ? pv + 0.3 : 3;
 					x += (float) (distX * v / dist);
 					y += (float) (distY * v / dist);
 				}
@@ -125,14 +125,12 @@ public class Item extends GameObject
 				}
 				else
 				{
-					// アイテム落下
 					fall();
 				}
 			}
 		}
 		else
 		{
-			// アイテム落下
 			fall();
 		}
 
@@ -140,7 +138,7 @@ public class Item extends GameObject
 	}
 
 	/**
-	 * アイテムが落下する際の動作.
+	 * 落下する際の動作.
 	 */
 	private void fall()
 	{

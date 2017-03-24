@@ -7,6 +7,14 @@ package shooting;
  */
 public class Random
 {
+	public static final long seed = 1858;
+	private static java.util.Random rnd;
+
+	public static void init()
+	{
+		rnd = new java.util.Random(seed);
+	}
+
 	/**
 	 * 乱数を生成する.
 	 * 0以上bound未満の整数を返す.
@@ -16,8 +24,6 @@ public class Random
 	 */
 	public static int nextInt(int bound)
 	{
-		java.util.Random rnd = new java.util.Random();
-		int r = rnd.nextInt(bound);
-		return r;
+		return rnd.nextInt(bound);
 	}
 }
