@@ -7,9 +7,11 @@ package shooting;
  */
 public class Text
 {
-	/** 揃え位置を表す定数 */
+	/** 左揃えを表す定数 */
 	public static final int LEFT_ALIGN = 0;
+	/** 中央揃えを表す定数 */
 	public static final int CENTER_ALIGN = 1;
+	/** 右揃えを表す定数 */
 	public static final int RIGHT_ALIGN = 2;
 
 	/** 描画用フォント */
@@ -65,7 +67,7 @@ public class Text
 	 */
 	public static void setDefaultColor()
 	{
-		setColor(0.9f, 0.9f, 0.9f);
+		setColor(0.9f, 0.9f, 0.9f, 1.0f);
 	}
 
 	public static void drawString(String str, float x, float y)

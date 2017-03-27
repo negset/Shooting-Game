@@ -51,7 +51,7 @@ public class Font
 	}
 
 	/**
-	 * font.prop の読み込みを行う.
+	 * フォントプロパティの読み込みを行う.
 	 *
 	 * @param path ファイルパス
 	 */
@@ -96,7 +96,7 @@ public class Font
 	}
 
 	/**
-	 * glyph.dat の読み込みを行う.
+	 * グリフデータの読み込みを行う.
 	 *
 	 * @param path ファイルパス
 	 */
