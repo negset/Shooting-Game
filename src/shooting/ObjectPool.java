@@ -82,7 +82,7 @@ public class ObjectPool
 		item = new Item[ITEM_MAX];
 		for (int i = 0; i < item.length; i++)
 		{
-			item[i] = new Item(player);
+			item[i] = new Item();
 		}
 
 		// ダメージエフェクトの配列を確保し,配列の要素分インスタンスを作る.
@@ -302,6 +302,11 @@ public class ObjectPool
 	public static float getPlayerY()
 	{
 		return player.y;
+	}
+
+	public static boolean hasActivePlayer()
+	{
+		return player.active;
 	}
 
 	/**

@@ -12,6 +12,15 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Item extends GameObject
 {
+	/** アイテム獲得となる自機との距離 */
+	public static final int DIST_CATCH = 10;
+	/** 自動接近が有効になる自機との距離 */
+	public static final int DIST_FOLLOW = 50;
+	/** 自動回収時の移動の速さ */
+	public static final int SPEED_GATHER = 10;
+	/** 自動接近時の移動の速さ */
+	public static final int SPEED_FOLLOW = 3;
+
 	/** 画像 */
 	private static Image[] img;
 	static
@@ -25,32 +34,32 @@ public class Item extends GameObject
 				img[i] = ss.getSubImage(i, 0);
 			}
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
-	/** 回収先の自機 */
-	Player player;
 	/** 種類 */
-	int type;
-	/** 速度のY成分 */
-	float speedY;
+	private int type;
+	/** 落下時の速度 */
+	private float fallSpeed;
 	/** フレームカウンタ */
-	int counter;
+	private int counter;
 	/** 自動回収フラグ */
-	boolean autoCollect;
+	private boolean isGathering;
 	/** 自動接近フラグ */
-	boolean autoFollow;
+	private boolean isFollowing;
+	/***/
+	private int idealDist;
 
 	/**
 	 * コンストラクタ
-	 *
-	 * @param player アイテム回収先
 	 */
-	Item(Player player)
+	Item()
 	{
 		width = img[0].getWidth();
 		height = img[0].getHeight();
-		this.player = player;
 	}
 
 	/**
@@ -58,14 +67,14 @@ public class Item extends GameObject
 	 */
 	public void update()
 	{
-		if (player.active)
+		if (ObjectPool.hasActivePlayer())
 		{
-			float distX = player.x - x;
-			float distY = player.y - y;
-			double dist = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+			float diffX = ObjectPool.getPlayerX() - x;
+			float diffY = ObjectPool.getPlayerY() - y;
+			double dist = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
 
 			// アイテム獲得
-			if (dist < 10)
+			if (dist <= DIST_CATCH)
 			{
 				switch (type)
 				{
@@ -98,30 +107,33 @@ public class Item extends GameObject
 				active = false;
 			}
 			// 自動回収時の動作
-			else if (autoCollect)
+			else if (isGathering)
 			{
-				x += (float) (distX * 10 / dist);
-				y += (float) (distY * 10 / dist);
+				x += diffX * SPEED_GATHER / dist;
+				y += diffY * SPEED_GATHER / dist;
 			}
 			else
 			{
 				// 自機が画面上部に来たら,自動回収フラグを立てる.
-				if (player.y < Play.AREA_TOP + 150)
+				if (ObjectPool.getPlayerY() <= Play.AREA_TOP + 150)
 				{
-					autoCollect = true;
+					isGathering = true;
 				}
 				// 自動接近時の動作
-				else if (autoFollow)
+				else if (isFollowing)
 				{
-					double pv = Math.sqrt(Math.pow(player.deltaX, 2) + Math.pow(player.deltaY, 2));
-					double v = pv > 0 ? pv + 0.3 : 3;
-					x += (float) (distX * v / dist);
-					y += (float) (distY * v / dist);
+					// 実際の距離と目標距離の差を計算する.
+					double diff = dist - idealDist;
+					// 差が0以下であれば通常速度,正であれば目標までの距離を詰める.
+					double v = (diff <= 0) ? SPEED_FOLLOW : diff;
+					x += diffX * v / dist;
+					y += diffY * v / dist;
+					idealDist -= SPEED_FOLLOW;
 				}
 				// 自機が近くに来たら,自動接近フラグを立てる.
-				else if (dist < 50)
+				else if (dist <= 50)
 				{
-					autoFollow = true;
+					isFollowing = true;
 				}
 				else
 				{
@@ -142,11 +154,11 @@ public class Item extends GameObject
 	 */
 	private void fall()
 	{
-		y += speedY;
+		y += fallSpeed;
 		// 方向転換
 		if (counter > 60 && counter < 60 + 40)
 		{
-			speedY += 0.1;
+			fallSpeed += 0.1;
 		}
 		// 画面外に出たら非アクティブにする.
 		if (y > Play.AREA_BOTTOM + 8)
@@ -184,9 +196,10 @@ public class Item extends GameObject
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		speedY = -2;
+		fallSpeed = -2;
 		counter = 0;
-		autoCollect = false;
-		autoFollow = false;
+		isGathering = false;
+		isFollowing = false;
+		idealDist = DIST_FOLLOW;
 	}
 }
