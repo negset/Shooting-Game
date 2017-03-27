@@ -7,12 +7,12 @@ package shooting;
  */
 public class Random
 {
-	public static final long seed = 1858;
+	public static final long SEED = 18589;
 	private static java.util.Random rnd;
 
 	public static void init()
 	{
-		rnd = new java.util.Random(seed);
+		rnd = new java.util.Random(SEED);
 	}
 
 	/**
