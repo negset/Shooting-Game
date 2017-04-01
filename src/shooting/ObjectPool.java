@@ -212,17 +212,13 @@ public class ObjectPool
 	}
 
 	public static int newEnemy(float x, float y, int type, int hp, int motion,
-			int score, int item, int sType, int sTimes, int sInterval,
-			int sAimType, float sAngle1, float sAngle2, int sRange, int sWays,
-			int bType, int bColor, int bMotion, float bSpeed1, float bSpeed2)
+			int score, int item, Shot shot)
 	{
 		for (int i = 0; i < enemy.length; i++)
 		{
 			if (!enemy[i].active)
 			{
-				enemy[i].activate(x, y, type, hp, motion, score, item, sType,
-						sTimes, sInterval, sAimType, sAngle1, sAngle2, sRange, sWays,
-						bType, bColor, bMotion, bSpeed1, bSpeed2);
+				enemy[i].activate(x, y, type, hp, motion, score, item, shot);
 				return i;
 			}
 		}

@@ -38,7 +38,7 @@ public class Enemy extends GameObject
 	private int score;
 	/** 倒したときに得られるアイテム */
 	private int item;
-	/***/
+	/** ショット */
 	private Shot shot;
 
 	/** フレームカウンタ */
@@ -208,9 +208,7 @@ public class Enemy extends GameObject
 	 * @param y Y座標
 	 */
 	public void activate(float x, float y, int type, int hp, int motion,
-			int score, int item, int sType, int sTimes, int sInterval,
-			int sAimType, float sAngle1, float sAngle2, int sRange, int sWays,
-			int bType, int bColor, int bMotion, float bSpeed1, float bSpeed2)
+			int score, int item, Shot shot)
 	{
 		active = true;
 		this.x = x;
@@ -220,8 +218,7 @@ public class Enemy extends GameObject
 		this.motion = motion;
 		this.score = score;
 		this.item = item;
-		shot = new Shot(sType, sTimes, sInterval, sAimType, sAngle1, sAngle2,
-				sRange, sWays, bType, bColor, bMotion, bSpeed1, bSpeed2);
+		this.shot = shot;
 
 		counter = 0;
 		speedX = 0;

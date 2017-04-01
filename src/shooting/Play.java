@@ -25,7 +25,7 @@ public class Play extends GameState
 	public static final int AREA_CENTER_Y = 300;
 
 	/** フレーム画像 */
-	static Image frame0, frame1, frame2, frame3;
+	private static Image frame0, frame1, frame2, frame3;
 	static
 	{
 		try
@@ -91,8 +91,8 @@ public class Play extends GameState
 			// 敵の出現(仮)
 			if (counter % 180 == 90)
 			{
-				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, counter/180, 6, 6, 0,
-						90, 0, 20, 12, 0, 0, 1, 2f, 0f);
+				Shot shot = new Shot(counter/180, 6, 6, 0, 90, 0, 20, 12, 0, 0, 1, 2f, 0f);
+				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, shot);
 			}
 
 			if (Playdata.isGameover)
