@@ -9,10 +9,28 @@ import org.newdawn.slick.Graphics;
  */
 public class ObjectPool
 {
+	/** 最大数の設定 */
+	static final int BULLET_MAX = 1000;
+	static final int MYBULLET_MAX = 20;
+	static final int MYAIMBULLET_MAX = 20;
+	static final int ENEMY_MAX = 50;
+	static final int EXPLOSION_MAX = 50;
+	static final int ITEM_MAX = 50;
+	static final int DAMAGE_MAX = 20;
+	static final int GRAZE_MAX = 10;
+
+	/** 衝突判定に用いる距離定数 */
+	static final int DIST_PLAYER_TO_BULLET = 10;
+	static final int DIST_GRAZE = 30;
+	static final int DIST_ENEMY_TO_MYBULLET = 16;
+	static final int DIST_PLAYER_TO_ENEMY = 20;
+
 	/** 敵機の弾 */
 	private static Bullet[] bullet;
 	/** 自機の弾 */
-	private static MyBullet[] mybullet;
+	private static MyBullet[] myBullet;
+	/***/
+	private static MyAimBullet[] myAimBullet;
 	/** 敵機 */
 	private static Enemy[] enemy;
 	/** 自機 */
@@ -26,20 +44,7 @@ public class ObjectPool
 	/** グレイズエフェクト */
 	private static Graze[] graze;
 
-	/** 最大数の設定 */
-	static final int BULLET_MAX = 1000;
-	static final int MYBULLET_MAX = 20;
-	static final int ENEMY_MAX = 50;
-	static final int EXPLOSION_MAX = 50;
-	static final int ITEM_MAX = 50;
-	static final int DAMAGE_MAX = 20;
-	static final int GRAZE_MAX = 10;
-
-	/** 衝突判定に用いる距離定数 */
-	static final int DIST_PLAYER_TO_BULLET = 10;
-	static final int DIST_GRAZE = 30;
-	static final int DIST_ENEMY_TO_MYBULLET = 16;
-	static final int DIST_PLAYER_TO_ENEMY = 20;
+	private static int nearestEnemyIndex;
 
 	/**
 	 * コンストラクタ
@@ -58,10 +63,16 @@ public class ObjectPool
 		}
 
 		// 自機の弾の配列を確保し,配列の要素分インスタンスを作る.
-		mybullet = new MyBullet[MYBULLET_MAX];
-		for(int i = 0; i < mybullet.length; i++)
+		myBullet = new MyBullet[MYBULLET_MAX];
+		for(int i = 0; i < myBullet.length; i++)
 		{
-			mybullet[i] = new MyBullet();
+			myBullet[i] = new MyBullet();
+		}
+
+		myAimBullet = new MyAimBullet[MYAIMBULLET_MAX];
+		for(int i = 0; i < myAimBullet.length; i++)
+		{
+			myAimBullet[i] = new MyAimBullet();
 		}
 
 		// 敵機の配列を確保し,配列の要素分インスタンスを作る.
@@ -107,7 +118,8 @@ public class ObjectPool
 	{
 		// 全てのインスタンスを無効にし,自機のみ有効にする.
 		deactivateObjects(bullet);
-		deactivateObjects(mybullet);
+		deactivateObjects(myBullet);
+		deactivateObjects(myAimBullet);
 		deactivateObjects(enemy);
 		deactivateObjects(explosion);
 		deactivateObjects(item);
@@ -130,16 +142,18 @@ public class ObjectPool
 	}
 
 	/**
-	 * 全てのオブジェクトのステップごとの更新を行う.
+	 * ステップごとの更新.
 	 */
-	public void updateAllObjects()
+	public void update()
 	{
 		if (player.active)
 		{
 			player.update();
 		}
 		updateObjects(enemy);
-		updateObjects(mybullet);
+		setNearestEnemy();
+		updateObjects(myBullet);
+		updateObjects(myAimBullet);
 		updateObjects(bullet);
 		updateObjects(explosion);
 		updateObjects(item);
@@ -164,9 +178,9 @@ public class ObjectPool
 	}
 
 	/**
-	 * 全てのオブジェクトの描画処理を行う.
+	 * ステップごとの描画処理.
 	 */
-	public void renderAllObjects(Graphics g)
+	public void render(Graphics g)
 	{
 		renderObjects(item, g);
 		if (player.active)
@@ -174,7 +188,8 @@ public class ObjectPool
 			player.render(g);
 		}
 		renderObjects(enemy, g);
-		renderObjects(mybullet, g);
+		renderObjects(myBullet, g);
+		renderObjects(myAimBullet, g);
 		renderObjects(bullet, g);
 		renderObjects(explosion, g);
 		renderObjects(damage, g);
@@ -227,11 +242,24 @@ public class ObjectPool
 
 	public static int newMyBullet(float x, float y)
 	{
-		for (int i = 0; i < mybullet.length; i++)
+		for (int i = 0; i < myBullet.length; i++)
 		{
-			if (!mybullet[i].active)
+			if (!myBullet[i].active)
 			{
-				mybullet[i].activate(x, y);
+				myBullet[i].activate(x, y);
+				return i;
+			}
+		}
+		return -1;		//見つからなかった
+	}
+
+	public static int newMyAimBullet(float x, float y, float angle)
+	{
+		for (int i = 0; i < myAimBullet.length; i++)
+		{
+			if (!myAimBullet[i].active)
+			{
+				myAimBullet[i].activate(x, y, angle);
 				return i;
 			}
 		}
@@ -305,6 +333,41 @@ public class ObjectPool
 		return player.active;
 	}
 
+	private void setNearestEnemy()
+	{
+		nearestEnemyIndex = -1;
+		double dist = 800;
+		for (int i = 0; i < enemy.length; i++)
+		{
+			if (enemy[i].active)
+			{
+				double d = getDistance(player, enemy[i]);
+				if (d < dist)
+				{
+					dist = d;
+					nearestEnemyIndex = i;
+				}
+			}
+		}
+	}
+
+	public static boolean hasNearestEnemy()
+	{
+		if (nearestEnemyIndex == -1)
+			return false;
+		return true;
+	}
+
+	public static float getNearestEnemyX()
+	{
+		return enemy[nearestEnemyIndex].x;
+	}
+
+	public static float getNearestEnemyY()
+	{
+		return enemy[nearestEnemyIndex].y;
+	}
+
 	/**
 	 * オブジェクト間の距離を返す.
 	 *
@@ -369,19 +432,36 @@ public class ObjectPool
 		{
 			if (enemy[i].active)
 			{
-				for (int j = 0; j < mybullet.length; j++)
+				for (int j = 0; j < myBullet.length; j++)
 				{
-					if (mybullet[j].active)
+					if (myBullet[j].active)
 					{
 						// あたり判定
-						if (getDistance(enemy[i], mybullet[j]) < DIST_ENEMY_TO_MYBULLET)
+						if (getDistance(enemy[i], myBullet[j]) < DIST_ENEMY_TO_MYBULLET)
 						{
 							// 敵の体力を減らす.
 							enemy[i].hit();
 							// ダメージエフェクト
-							newDamage(mybullet[j].x, mybullet[j].y);
+							newDamage(myBullet[j].x, myBullet[j].y);
 							// 弾消滅
-							mybullet[j].active = false;
+							myBullet[j].active = false;
+						}
+					}
+				}
+
+				for (int j = 0; j < myAimBullet.length; j++)
+				{
+					if (myAimBullet[j].active)
+					{
+						// あたり判定
+						if (getDistance(enemy[i], myAimBullet[j]) < DIST_ENEMY_TO_MYBULLET)
+						{
+							// 敵の体力を減らす.
+							enemy[i].hit();
+							// ダメージエフェクト
+							newDamage(myAimBullet[j].x, myAimBullet[j].y);
+							// 弾消滅
+							myAimBullet[j].active = false;
 						}
 					}
 				}

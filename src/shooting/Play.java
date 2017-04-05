@@ -85,7 +85,7 @@ public class Play extends GameState
 	{
 		if (!isPause)
 		{
-			objectpool.updateAllObjects();
+			objectpool.update();
 			objectpool.getColision();
 
 			// 敵の出現(仮)
@@ -153,7 +153,7 @@ public class Play extends GameState
 		frame2.draw(AREA_LEFT, AREA_BOTTOM);
 		frame3.draw(AREA_RIGHT, 0);
 
-		objectpool.renderAllObjects(g);
+		objectpool.render(g);
 		playdata.render(g);
 
 		if (Playdata.isGameover)
