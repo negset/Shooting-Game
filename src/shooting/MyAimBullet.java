@@ -32,27 +32,11 @@ public class MyAimBullet extends GameObject
 
 	public void update()
 	{
-		double idealAngle;
 		if (ObjectPool.hasNearestEnemy())
 		{
 			float ex = ObjectPool.getNearestEnemyX();
 			float ey = ObjectPool.getNearestEnemyY();
-			idealAngle = Math.toDegrees(Math.atan2(ey - y, ex - x));
-		}
-		else
-			idealAngle = -90;
-
-		if (angle < idealAngle)
-		{
-			angle += count / 3;
-			if (angle > idealAngle)
-				angle = (float) idealAngle;
-		}
-		else if (angle > idealAngle)
-		{
-			angle -= count / 3;
-			if (angle < idealAngle)
-				angle = (float) idealAngle;
+			angle = (float) Math.toDegrees(Math.atan2(ey - y, ex - x));
 		}
 
 		double radian = Math.toRadians(angle);
