@@ -25,23 +25,15 @@ public class ObjectPool
 	static final int DIST_ENEMY_TO_MYBULLET = 16;
 	static final int DIST_PLAYER_TO_ENEMY = 20;
 
-	/** 敵機の弾 */
+	/** ゲームオブジェクトのインスタンスをあらかじめ生成し,貯めておくための配列 */
 	private static Bullet[] bullet;
-	/** 自機の弾 */
 	private static MyBullet[] myBullet;
-	/***/
 	private static MySubBullet[] mySubBullet;
-	/** 敵機 */
 	private static Enemy[] enemy;
-	/** 自機 */
 	private static Player player;
-	/** 爆発エフェクト */
 	private static Explosion[] explosion;
-	/** アイテム */
 	private static Item[] item;
-	/** ダメージエフェクト */
 	private static Damage[] damage;
-	/** グレイズエフェクト */
 	private static Graze[] graze;
 
 	private static int nearestEnemyIndex;
@@ -129,27 +121,12 @@ public class ObjectPool
 	}
 
 	/**
-	 * 配列内のすべてのインスタンスを無効にする.
-	 *
-	 * @param object ゲームオブジェクトの配列
-	 */
-	private void deactivateObjects(GameObject[] object)
-	{
-		for (int i = 0; i < object.length; i++)
-		{
-			object[i].active = false;
-		}
-	}
-
-	/**
 	 * ステップごとの更新.
 	 */
 	public void update()
 	{
 		if (player.active)
-		{
 			player.update();
-		}
 		updateObjects(enemy);
 		setNearestEnemy();
 		updateObjects(myBullet);
@@ -162,31 +139,13 @@ public class ObjectPool
 	}
 
 	/**
-	 * 配列内のインスタンスのうち,有効な物のみを更新する.
-	 *
-	 * @param object ゲームオブジェクトの配列
-	 */
-	public void updateObjects(GameObject[] object)
-	{
-		for (int i = 0; i < object.length; i++)
-		{
-			if (object[i].active)
-			{
-				object[i].update();
-			}
-		}
-	}
-
-	/**
 	 * ステップごとの描画処理.
 	 */
 	public void render(Graphics g)
 	{
 		renderObjects(item, g);
 		if (player.active)
-		{
 			player.render(g);
-		}
 		renderObjects(enemy, g);
 		renderObjects(myBullet, g);
 		renderObjects(mySubBullet, g);
@@ -197,17 +156,46 @@ public class ObjectPool
 	}
 
 	/**
+	 * 配列内のすべてのインスタンスを無効にする.
+	 *
+	 * @param object ゲームオブジェクトの配列
+	 */
+	private void deactivateObjects(GameObject[] object)
+	{
+		for (GameObject obj : object)
+		{
+			obj.active = false;
+		}
+	}
+
+	/**
+	 * 配列内のインスタンスのうち,有効な物のみを更新する.
+	 *
+	 * @param object ゲームオブジェクトの配列
+	 */
+	public void updateObjects(GameObject[] object)
+	{
+		for (GameObject obj: object)
+		{
+			if (obj.active)
+			{
+				obj.update();
+			}
+		}
+	}
+
+	/**
 	 * 配列内のインスタンスのうち,有効な物のみを描画する.
 	 *
 	 * @param object ゲームオブジェクトの配列
 	 */
 	private void renderObjects(GameObject[] object, Graphics g)
 	{
-		for (int i = 0; i < object.length; i++)
+		for (GameObject obj : object)
 		{
-			if (object[i].active)
+			if (obj.active)
 			{
-				object[i].render(g);
+				obj.render(g);
 			}
 		}
 	}
@@ -253,7 +241,7 @@ public class ObjectPool
 		return -1;		//見つからなかった
 	}
 
-	public static int newMyAimBullet(float x, float y, float angle)
+	public static int newMySubBullet(float x, float y, float angle)
 	{
 		for (int i = 0; i < mySubBullet.length; i++)
 		{
@@ -386,7 +374,7 @@ public class ObjectPool
 	/**
 	 * 衝突判定
 	 */
-	public void getColision()
+	public void collisionDetection()
 	{
 		// 敵機の弾と自機の衝突
 		if (player.active)

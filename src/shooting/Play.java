@@ -86,7 +86,7 @@ public class Play extends GameState
 		if (!isPause)
 		{
 			objectpool.update();
-			objectpool.getColision();
+			objectpool.collisionDetection();
 
 			// 敵の出現(仮)
 			if (counter % 180 == 90)

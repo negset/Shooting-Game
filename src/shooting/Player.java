@@ -103,8 +103,8 @@ public class Player extends GameObject
 		if (KeyInput.getZ() >= 1 && Play.counter % 6 == 0)
 		{
 			ObjectPool.newMyBullet(x, y);
-			ObjectPool.newMyAimBullet(x + 30, y + 30, -60);
-			ObjectPool.newMyAimBullet(x - 30, y + 30, -120);
+			ObjectPool.newMySubBullet(x + 30, y + 30, -60);
+			ObjectPool.newMySubBullet(x - 30, y + 30, -120);
 		}
 
 		if (isInvincible)

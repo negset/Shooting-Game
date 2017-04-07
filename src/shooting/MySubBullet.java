@@ -40,7 +40,7 @@ public class MySubBullet extends GameObject
 
 			if ((idealAngle - angle + 360) % 360 < 180)
 			{
-				angle += count * 2;
+				angle += count + 5;
 				if (angle > 180)
 					angle -= 360;
 
@@ -49,7 +49,7 @@ public class MySubBullet extends GameObject
 			}
 			else
 			{
-				angle -= count * 2;
+				angle -= count + 5;
 				if (angle < -180)
 					angle += 360;
 
