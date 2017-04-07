@@ -21,8 +21,6 @@ public class Text
 		font = new Font("res/font");
 		setDefaultColor();
 	}
-	/** 描画時の文字色 */
-	private static float r, g, b, a;
 
 	/**
 	 * 描画する際の色を設定する.
@@ -34,10 +32,7 @@ public class Text
 	 */
 	public static void setColor(float r, float g, float b, float a)
 	{
-		Text.r = r;
-		Text.g = g;
-		Text.b = b;
-		Text.a = a;
+		font.setColor(r, g, b, a);
 	}
 
 	/**
@@ -49,7 +44,7 @@ public class Text
 	 */
 	public static void setColor(float r, float g, float b)
 	{
-		setColor(r, g, b, 1.0f);
+		font.setColor(r, g, b, 1.0f);
 	}
 
 	/**
@@ -59,7 +54,7 @@ public class Text
 	 */
 	public static void setAlpha(float a)
 	{
-		Text.a = a;
+		font.setAlpha(a);
 	}
 
 	/**
@@ -70,12 +65,26 @@ public class Text
 		setColor(0.9f, 0.9f, 0.9f, 1.0f);
 	}
 
+	/**
+	 * 文字列を描画する.
+	 *
+	 * @param str 描画する文字列
+	 * @param x 描画する位置のX座標
+	 * @param y 描画する位置のY座標
+	 */
 	public static void drawString(String str, float x, float y)
 	{
-		font.setColor(r, g, b, a);
 		font.drawString(str, x, y);
 	}
 
+	/**
+	 * 文字列を描画する.
+	 *
+	 * @param str 描画する文字列
+	 * @param x 描画する位置のX座標
+	 * @param y 描画する位置のY座標
+	 * @param align 揃え位置
+	 */
 	public static void drawString(String str, float x, float y, int align)
 	{
 		switch (align)

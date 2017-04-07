@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -257,6 +258,25 @@ public class Font
 					x - (float) (spriteSize - glyphWidth[id]) / 2,
 					y - (float) spriteSize / 2);
 			x += glyphWidth[id];
+		}
+	}
+
+	/**
+	 * フォントを廃棄し,メモリを開放する.
+	 * 廃棄後はフォントにアクセスしてはならない.
+	 */
+	public void destroy()
+	{
+		for (Image img : sprite)
+		{
+			try
+			{
+				img.destroy();
+			}
+			catch (SlickException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -19,7 +19,10 @@ public class Graze extends GameObject
 		{
 			img = new Image("res/img/graze.png");
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/** フレームカウンタ */
