@@ -12,7 +12,7 @@ public class ObjectPool
 	/** 最大数の設定 */
 	static final int BULLET_MAX = 1000;
 	static final int MYBULLET_MAX = 20;
-	static final int MYAIMBULLET_MAX = 20;
+	static final int MYSUBBULLET_MAX = 20;
 	static final int ENEMY_MAX = 50;
 	static final int EXPLOSION_MAX = 50;
 	static final int ITEM_MAX = 50;
@@ -30,7 +30,7 @@ public class ObjectPool
 	/** 自機の弾 */
 	private static MyBullet[] myBullet;
 	/***/
-	private static MyAimBullet[] myAimBullet;
+	private static MySubBullet[] mySubBullet;
 	/** 敵機 */
 	private static Enemy[] enemy;
 	/** 自機 */
@@ -69,10 +69,10 @@ public class ObjectPool
 			myBullet[i] = new MyBullet();
 		}
 
-		myAimBullet = new MyAimBullet[MYAIMBULLET_MAX];
-		for(int i = 0; i < myAimBullet.length; i++)
+		mySubBullet = new MySubBullet[MYSUBBULLET_MAX];
+		for(int i = 0; i < mySubBullet.length; i++)
 		{
-			myAimBullet[i] = new MyAimBullet();
+			mySubBullet[i] = new MySubBullet();
 		}
 
 		// 敵機の配列を確保し,配列の要素分インスタンスを作る.
@@ -119,7 +119,7 @@ public class ObjectPool
 		// 全てのインスタンスを無効にし,自機のみ有効にする.
 		deactivateObjects(bullet);
 		deactivateObjects(myBullet);
-		deactivateObjects(myAimBullet);
+		deactivateObjects(mySubBullet);
 		deactivateObjects(enemy);
 		deactivateObjects(explosion);
 		deactivateObjects(item);
@@ -153,7 +153,7 @@ public class ObjectPool
 		updateObjects(enemy);
 		setNearestEnemy();
 		updateObjects(myBullet);
-		updateObjects(myAimBullet);
+		updateObjects(mySubBullet);
 		updateObjects(bullet);
 		updateObjects(explosion);
 		updateObjects(item);
@@ -189,7 +189,7 @@ public class ObjectPool
 		}
 		renderObjects(enemy, g);
 		renderObjects(myBullet, g);
-		renderObjects(myAimBullet, g);
+		renderObjects(mySubBullet, g);
 		renderObjects(bullet, g);
 		renderObjects(explosion, g);
 		renderObjects(damage, g);
@@ -255,11 +255,11 @@ public class ObjectPool
 
 	public static int newMyAimBullet(float x, float y, float angle)
 	{
-		for (int i = 0; i < myAimBullet.length; i++)
+		for (int i = 0; i < mySubBullet.length; i++)
 		{
-			if (!myAimBullet[i].active)
+			if (!mySubBullet[i].active)
 			{
-				myAimBullet[i].activate(x, y, angle);
+				mySubBullet[i].activate(x, y, angle);
 				return i;
 			}
 		}
@@ -449,19 +449,19 @@ public class ObjectPool
 					}
 				}
 
-				for (int j = 0; j < myAimBullet.length; j++)
+				for (int j = 0; j < mySubBullet.length; j++)
 				{
-					if (myAimBullet[j].active)
+					if (mySubBullet[j].active)
 					{
 						// あたり判定
-						if (getDistance(enemy[i], myAimBullet[j]) < DIST_ENEMY_TO_MYBULLET)
+						if (getDistance(enemy[i], mySubBullet[j]) < DIST_ENEMY_TO_MYBULLET)
 						{
 							// 敵の体力を減らす.
 							enemy[i].hit();
 							// ダメージエフェクト
-							newDamage(myAimBullet[j].x, myAimBullet[j].y);
+							newDamage(mySubBullet[j].x, mySubBullet[j].y);
 							// 弾消滅
-							myAimBullet[j].active = false;
+							mySubBullet[j].active = false;
 						}
 					}
 				}

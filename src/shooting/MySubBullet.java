@@ -4,7 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class MyAimBullet extends GameObject
+public class MySubBullet extends GameObject
 {
 	private static Image img;
 	static
@@ -23,7 +23,7 @@ public class MyAimBullet extends GameObject
 	float angle;
 	int count;
 
-	MyAimBullet()
+	MySubBullet()
 	{
 		width = img.getWidth();
 		height = img.getHeight();
@@ -36,14 +36,35 @@ public class MyAimBullet extends GameObject
 		{
 			float ex = ObjectPool.getNearestEnemyX();
 			float ey = ObjectPool.getNearestEnemyY();
-			angle = (float) Math.toDegrees(Math.atan2(ey - y, ex - x));
+			double idealAngle = Math.toDegrees(Math.atan2(ey - y, ex - x));
+
+			if ((idealAngle - angle + 360) % 360 < 180)
+			{
+				angle += count * 2;
+				if (angle > 180)
+					angle -= 360;
+
+				if ((idealAngle - angle + 360) % 360 > 180)
+					angle = (float) idealAngle;
+			}
+			else
+			{
+				angle -= count * 2;
+				if (angle < -180)
+					angle += 360;
+
+				if ((idealAngle - angle + 360) % 360 < 180)
+					angle = (float) idealAngle;
+			}
 		}
 
 		double radian = Math.toRadians(angle);
 		x += speed * Math.cos(radian);
 		y += speed * Math.sin(radian);
 
-		active = y > Play.AREA_TOP - height;
+		int mergin = 50;
+		active = x > Play.AREA_LEFT - mergin && x < Play.AREA_RIGHT + mergin
+				&& y > Play.AREA_TOP - mergin && y < Play.AREA_BOTTOM + mergin;
 
 		count++;
 	}
