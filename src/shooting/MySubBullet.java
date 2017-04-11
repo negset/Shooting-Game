@@ -51,8 +51,8 @@ public class MySubBullet extends GameObject
 			speedY = (float) (speedX * Math.sin(radian) + speedY * Math.cos(radian));
 		}
 
-		x += speedX * speed;
-		y += speedY * speed;
+		x += speedX;
+		y += speedY;
 
 		checkLeaving(50);
 
@@ -77,8 +77,8 @@ public class MySubBullet extends GameObject
 		this.x = x;
 		this.y = y;
 
-		speedX = Math.cos(Math.toRadians(angle));
-		speedY = Math.sin(Math.toRadians(angle));
+		speedX = speed * Math.cos(Math.toRadians(angle));
+		speedY = speed * Math.sin(Math.toRadians(angle));
 
 		count = 0;
 	}
