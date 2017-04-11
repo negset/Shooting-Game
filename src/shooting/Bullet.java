@@ -87,12 +87,7 @@ public class Bullet extends GameObject
 	{
 		x += speedX;
 		y += speedY;
-
-		if (x < Play.AREA_LEFT - width / 2 || x > Play.AREA_RIGHT + width / 2
-				|| y < Play.AREA_TOP - height / 2|| y > Play.AREA_BOTTOM + height / 2)
-		{
-			active = false;
-		}
+		checkLeaving(0);
 	}
 
 	/**
@@ -103,12 +98,7 @@ public class Bullet extends GameObject
 		float f = counter < 15 ? 2.5f - (float) counter / 10 : 1f;
 		x += speedX * f;
 		y += speedY * f;
-
-		if (x < Play.AREA_LEFT - width / 2 || x > Play.AREA_RIGHT + width / 2
-				|| y < Play.AREA_TOP - height / 2|| y > Play.AREA_BOTTOM + height / 2)
-		{
-			active = false;
-		}
+		checkLeaving(0);
 	}
 
 	/**

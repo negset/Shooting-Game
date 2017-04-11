@@ -62,9 +62,7 @@ public class MySubBullet extends GameObject
 		x += speed * Math.cos(radian);
 		y += speed * Math.sin(radian);
 
-		int mergin = 50;
-		active = x > Play.AREA_LEFT - mergin && x < Play.AREA_RIGHT + mergin
-				&& y > Play.AREA_TOP - mergin && y < Play.AREA_BOTTOM + mergin;
+		checkLeaving(50);
 
 		count++;
 	}

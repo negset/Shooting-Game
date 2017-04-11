@@ -41,4 +41,21 @@ public abstract class GameObject
 	 * ステップごとの描画処理.
 	 */
 	public abstract void render(Graphics g);
+
+	/**
+	 * オブジェクトがプレイ領域内にいるかどうかを確認し,
+	 * 領域外に出ている場合は,インスタンスを無効にする.
+	 *
+	 * @param mergin
+	 */
+	void checkLeaving(int mergin)
+	{
+		if (x < Play.AREA_LEFT - width / 2 - mergin
+				|| x > Play.AREA_RIGHT + width / 2 + mergin
+				|| y < Play.AREA_TOP - height / 2 - mergin
+				|| y > Play.AREA_BOTTOM + height / 2 + mergin)
+		{
+			active = false;
+		}
+	}
 }
