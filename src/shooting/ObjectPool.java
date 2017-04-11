@@ -127,8 +127,7 @@ public class ObjectPool
 	{
 		if (player.active)
 			player.update();
-		updateObjects(enemy);
-		setNearestEnemy();
+		updateEnemies(enemy);
 		updateObjects(myBullet);
 		updateObjects(mySubBullet);
 		updateObjects(bullet);
@@ -173,13 +172,38 @@ public class ObjectPool
 	 *
 	 * @param object ゲームオブジェクトの配列
 	 */
-	public void updateObjects(GameObject[] object)
+	private void updateObjects(GameObject[] object)
 	{
 		for (GameObject obj: object)
 		{
 			if (obj.active)
 			{
 				obj.update();
+			}
+		}
+	}
+
+	/**
+	 * 敵機の配列内のインスタンスのうち,有効な物のみを更新する.
+	 * 同時に,自機に最も近いものの距離とインデックスを調べる.
+	 *
+	 * @param enemy
+	 */
+	private void updateEnemies(Enemy[] enemy)
+	{
+		nearestEnemyIndex = -1;
+		double dist = 800;
+		for (int i = 0; i < enemy.length; i++)
+		{
+			if (enemy[i].active)
+			{
+				double d = getDistance(player, enemy[i]);
+				if (d < dist)
+				{
+					dist = d;
+					nearestEnemyIndex = i;
+				}
+				enemy[i].update();
 			}
 		}
 	}
@@ -321,25 +345,7 @@ public class ObjectPool
 		return player.active;
 	}
 
-	private void setNearestEnemy()
-	{
-		nearestEnemyIndex = -1;
-		double dist = 800;
-		for (int i = 0; i < enemy.length; i++)
-		{
-			if (enemy[i].active)
-			{
-				double d = getDistance(player, enemy[i]);
-				if (d < dist)
-				{
-					dist = d;
-					nearestEnemyIndex = i;
-				}
-			}
-		}
-	}
-
-	public static boolean hasNearestEnemy()
+	public static boolean hasActiveEnemy()
 	{
 		if (nearestEnemyIndex == -1)
 			return false;
@@ -365,10 +371,9 @@ public class ObjectPool
 	 */
 	private double getDistance(GameObject o1, GameObject o2)
 	{
-		// 三平方の定理
 		double distX = Math.abs(o1.x - o2.x);
 		double distY = Math.abs(o1.y - o2.y);
-		return Math.sqrt(Math.pow(distX,2) + Math.pow(distY,2));
+		return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 	}
 
 	/**

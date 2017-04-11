@@ -19,9 +19,9 @@ public class MySubBullet extends GameObject
 		}
 	}
 
-	float speed;
-	float angle;
-	int count;
+	private float speed;
+	private float angle;
+	private int count;
 
 	MySubBullet()
 	{
@@ -32,11 +32,9 @@ public class MySubBullet extends GameObject
 
 	public void update()
 	{
-		if (ObjectPool.hasNearestEnemy())
+		if (ObjectPool.hasActiveEnemy())
 		{
-			float ex = ObjectPool.getNearestEnemyX();
-			float ey = ObjectPool.getNearestEnemyY();
-			double idealAngle = Math.toDegrees(Math.atan2(ey - y, ex - x));
+			double idealAngle = getAngle();
 
 			if ((idealAngle - angle + 360) % 360 < 180)
 			{
@@ -70,6 +68,13 @@ public class MySubBullet extends GameObject
 	public void render(Graphics g)
 	{
 		img.draw(x - width / 2, y - height / 2);
+	}
+
+	private double getAngle()
+	{
+		float ex = ObjectPool.getNearestEnemyX();
+		float ey = ObjectPool.getNearestEnemyY();
+		return Math.toDegrees(Math.atan2(ey - y, ex - x));
 	}
 
 	public void activate(float x, float y, float angle)
