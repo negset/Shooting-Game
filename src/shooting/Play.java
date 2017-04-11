@@ -49,7 +49,7 @@ public class Play extends GameState
 	/** フレームカウンタ */
 	public static int counter;
 	/** ポーズフラグ */
-	private boolean isPause;
+	private boolean isPausing;
 	/** ポーズ時のカーソル位置 */
 	private int cursor;
 
@@ -73,7 +73,7 @@ public class Play extends GameState
 		playdata.init();
 		Random.init();
 		counter = 0;
-		isPause = false;
+		isPausing = false;
 		cursor = 1;
 	}
 
@@ -83,7 +83,7 @@ public class Play extends GameState
 	public void update(GameContainer gc, int delta)
 			throws SlickException
 	{
-		if (!isPause)
+		if (!isPausing)
 		{
 			objectpool.update();
 			objectpool.collisionDetection();
@@ -104,7 +104,7 @@ public class Play extends GameState
 			}
 			else if (KeyInput.getEscape() == 1)
 			{
-				isPause = true;
+				isPausing = true;
 			}
 
 			counter++;
@@ -122,7 +122,7 @@ public class Play extends GameState
 
 					case 1:
 						cursor = 1;
-						isPause = false;
+						isPausing = false;
 						break;
 				}
 			}
@@ -137,7 +137,7 @@ public class Play extends GameState
 			else if (KeyInput.getEscape() == 1)
 			{
 				cursor = 1;
-				isPause = false;
+				isPausing = false;
 			}
 		}
 	}
@@ -161,7 +161,7 @@ public class Play extends GameState
 			Text.drawString("GAME OVER", AREA_CENTER_X, 240, 1);
 			Text.drawString("Zキーでタイトルに戻る", AREA_CENTER_X, 300, 1);
 		}
-		else if (isPause)
+		else if (isPausing)
 		{
 			Text.drawString("タイトル画面に戻りますか？", AREA_CENTER_X, 240, 1);
 			if (cursor == 0) Text.setColor(0.9f, 0.9f, 0f);

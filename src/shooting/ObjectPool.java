@@ -12,7 +12,7 @@ public class ObjectPool
 	/** 最大数の設定 */
 	static final int BULLET_MAX = 1000;
 	static final int MYBULLET_MAX = 20;
-	static final int MYSUBBULLET_MAX = 20;
+	static final int MYSUBBULLET_MAX = 40;
 	static final int ENEMY_MAX = 50;
 	static final int EXPLOSION_MAX = 50;
 	static final int ITEM_MAX = 50;
@@ -354,11 +354,15 @@ public class ObjectPool
 
 	public static float getNearestEnemyX()
 	{
+		if (nearestEnemyIndex == -1)
+			return -1;
 		return enemy[nearestEnemyIndex].x;
 	}
 
 	public static float getNearestEnemyY()
 	{
+		if (nearestEnemyIndex == -1)
+			return -1;
 		return enemy[nearestEnemyIndex].y;
 	}
 

@@ -20,7 +20,7 @@ public class MySubBullet extends GameObject
 	}
 
 	private float speed;
-	private float angle;
+	private double speedX, speedY;
 	private int count;
 
 	MySubBullet()
@@ -34,31 +34,25 @@ public class MySubBullet extends GameObject
 	{
 		if (ObjectPool.hasActiveEnemy())
 		{
-			double idealAngle = getAngle();
-
-			if ((idealAngle - angle + 360) % 360 < 180)
+			float tx = ObjectPool.getNearestEnemyX() - x;
+			float ty = ObjectPool.getNearestEnemyY() - y;
+			double radian = 0;
+			// 進行方向より左
+			if (speedX * ty - speedY * tx < 0)
 			{
-				angle += count + 5;
-				if (angle > 180)
-					angle -= 360;
-
-				if ((idealAngle - angle + 360) % 360 > 180)
-					angle = (float) idealAngle;
+				radian = -Math.toRadians(500 / getDistance());
 			}
-			else
+			// 進行方向より右
+			else if (speedX * ty - speedY * tx > 0)
 			{
-				angle -= count + 5;
-				if (angle < -180)
-					angle += 360;
-
-				if ((idealAngle - angle + 360) % 360 < 180)
-					angle = (float) idealAngle;
+				radian = Math.toRadians(500 / getDistance());
 			}
+			speedX = (float) (speedX * Math.cos(radian) - speedY * Math.sin(radian));
+			speedY = (float) (speedX * Math.sin(radian) + speedY * Math.cos(radian));
 		}
 
-		double radian = Math.toRadians(angle);
-		x += speed * Math.cos(radian);
-		y += speed * Math.sin(radian);
+		x += speedX * speed;
+		y += speedY * speed;
 
 		checkLeaving(50);
 
@@ -70,11 +64,11 @@ public class MySubBullet extends GameObject
 		img.draw(x - width / 2, y - height / 2);
 	}
 
-	private double getAngle()
+	private double getDistance()
 	{
-		float ex = ObjectPool.getNearestEnemyX();
-		float ey = ObjectPool.getNearestEnemyY();
-		return Math.toDegrees(Math.atan2(ey - y, ex - x));
+		double vx = Math.abs(ObjectPool.getNearestEnemyX() - x);
+		double vy = Math.abs(ObjectPool.getNearestEnemyY() - y);
+		return Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2));
 	}
 
 	public void activate(float x, float y, float angle)
@@ -82,7 +76,9 @@ public class MySubBullet extends GameObject
 		active = true;
 		this.x = x;
 		this.y = y;
-		this.angle = angle;
+
+		speedX = Math.cos(Math.toRadians(angle));
+		speedY = Math.sin(Math.toRadians(angle));
 
 		count = 0;
 	}
