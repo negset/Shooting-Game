@@ -21,7 +21,6 @@ public class MySubBullet extends GameObject
 
 	private float speed;
 	private double speedX, speedY;
-	private int count;
 
 	MySubBullet()
 	{
@@ -47,16 +46,14 @@ public class MySubBullet extends GameObject
 			{
 				radian = Math.toRadians(500 / getDistance());
 			}
-			speedX = (float) (speedX * Math.cos(radian) - speedY * Math.sin(radian));
-			speedY = (float) (speedX * Math.sin(radian) + speedY * Math.cos(radian));
+			speedX = speedX * Math.cos(radian) - speedY * Math.sin(radian);
+			speedY = speedX * Math.sin(radian) + speedY * Math.cos(radian);
 		}
 
 		x += speedX;
 		y += speedY;
 
 		checkLeaving(50);
-
-		count++;
 	}
 
 	public void render(Graphics g)
@@ -79,7 +76,5 @@ public class MySubBullet extends GameObject
 
 		speedX = speed * Math.cos(Math.toRadians(angle));
 		speedY = speed * Math.sin(Math.toRadians(angle));
-
-		count = 0;
 	}
 }
