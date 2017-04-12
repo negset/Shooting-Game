@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 /**
  * プレイ画面の更新,描画を行うクラス.
@@ -26,6 +27,10 @@ public class Play extends GameState
 
 	/** フレーム画像 */
 	private static Image frame0, frame1, frame2, frame3;
+	/** 決定 SE */
+	private static Sound decide;
+	/** 選択 SE */
+	private static Sound select;
 	static
 	{
 		try
@@ -34,6 +39,8 @@ public class Play extends GameState
 			frame1 = new Image("res/img/frame1.jpg");
 			frame2 = new Image("res/img/frame2.jpg");
 			frame3 = new Image("res/img/frame3.jpg");
+			decide = new Sound("res/snd/se_decide.wav");
+			select = new Sound("res/snd/se_select.wav");
 		}
 		catch (SlickException e)
 		{
@@ -105,6 +112,7 @@ public class Play extends GameState
 			else if (KeyInput.getEscape() == 1)
 			{
 				isPausing = true;
+				decide.play();
 			}
 
 			counter++;
@@ -125,19 +133,23 @@ public class Play extends GameState
 						isPausing = false;
 						break;
 				}
+				decide.play();
 			}
 			else if (KeyInput.getLeft() == 1)
 			{
 				cursor = 0;
+				select.play();
 			}
 			else if (KeyInput.getRight() == 1)
 			{
 				cursor = 1;
+				select.play();
 			}
 			else if (KeyInput.getEscape() == 1)
 			{
 				cursor = 1;
 				isPausing = false;
+				decide.play();
 			}
 		}
 	}

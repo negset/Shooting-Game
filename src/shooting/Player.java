@@ -3,6 +3,7 @@ package shooting;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -14,6 +15,7 @@ public class Player extends GameObject
 {
 	/** 画像 */
 	private static Image[] img;
+	private static Sound shotSnd;
 	static
 	{
 		try
@@ -24,6 +26,7 @@ public class Player extends GameObject
 			{
 				img[i] = ss.getSubImage(i % 4, i / 4);
 			}
+			shotSnd = new Sound("res/snd/se_shot.wav");
 		}
 		catch (SlickException e)
 		{
@@ -105,6 +108,7 @@ public class Player extends GameObject
 			ObjectPool.newMyBullet(x, y);
 			ObjectPool.newMySubBullet(x + 45, y + 45, -65);
 			ObjectPool.newMySubBullet(x - 45, y + 45, -115);
+			shotSnd.play();
 		}
 
 		if (isInvincible)
