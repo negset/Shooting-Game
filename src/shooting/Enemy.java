@@ -25,7 +25,10 @@ public class Enemy extends GameObject
 				img[i] = ss.getSubImage(i % 4, i / 4);
 			}
 		}
-		catch (SlickException e) {}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/** 種類 */
