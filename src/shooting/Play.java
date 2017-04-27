@@ -99,7 +99,7 @@ public class Play extends GameState
 			if (counter % 180 == 90)
 			{
 				Shot shot = new Shot(counter/180, 6, 6, 0, 90, 0, 20, 12, 0, 0, 1, 2f, 0f);
-				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, shot);
+				ObjectPool.newEnemy(300, 0, 0, 20, 0, 1500, 0, shot);
 			}
 
 			if (Playdata.isGameOver())
