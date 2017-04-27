@@ -127,7 +127,7 @@ public class ObjectPool
 	{
 		if (player.active)
 			player.update();
-		updateEnemies(enemy);
+		updateEnemies();
 		updateObjects(myBullet);
 		updateObjects(mySubBullet);
 		updateObjects(bullet);
@@ -189,16 +189,16 @@ public class ObjectPool
 	 *
 	 * @param enemy
 	 */
-	private void updateEnemies(Enemy[] enemy)
+	private void updateEnemies()
 	{
 		nearestEnemyIndex = -1;
-		double dist = 800;
+		double dist = -1;
 		for (int i = 0; i < enemy.length; i++)
 		{
 			if (enemy[i].active)
 			{
 				double d = getDistance(player, enemy[i]);
-				if (d < dist)
+				if (d < dist || dist == -1)
 				{
 					dist = d;
 					nearestEnemyIndex = i;
