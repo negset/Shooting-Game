@@ -102,7 +102,7 @@ public class Play extends GameState
 				ObjectPool.newEnemy(300, 0, 0, 2000, 0, 1500, 0, shot);
 			}
 
-			if (Playdata.isGameover)
+			if (Playdata.isGameOver())
 			{
 				if (KeyInput.getZ() == 1)
 				{
@@ -168,7 +168,7 @@ public class Play extends GameState
 		objectpool.render(g);
 		playdata.render(g);
 
-		if (Playdata.isGameover)
+		if (Playdata.isGameOver())
 		{
 			Text.drawString("GAME OVER", AREA_CENTER_X, 240, 1);
 			Text.drawString("Zキーでタイトルに戻る", AREA_CENTER_X, 300, 1);

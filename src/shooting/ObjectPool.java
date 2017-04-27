@@ -407,13 +407,10 @@ public class ObjectPool
 						{
 							// 残機を減らす.
 							Playdata.addLife(-1);
-							if (Playdata.isGameover)
+							if (Playdata.isGameOver())
 							{
 								newExplosion(player.x, player.y);
 								player.active = false;
-
-								// スコア保存
-								Playdata.saveScore();
 							}
 							player.isInvincible = true;
 						}
@@ -477,7 +474,7 @@ public class ObjectPool
 						// 残機を減らす.
 						Playdata.addLife(-1);
 						player.isInvincible = true;
-						if (Playdata.isGameover)
+						if (Playdata.isGameOver())
 						{
 							newExplosion(player.x, player.y);
 							player.active = false;

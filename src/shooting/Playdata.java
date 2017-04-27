@@ -2,6 +2,7 @@ package shooting;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,20 +16,23 @@ import org.newdawn.slick.Graphics;
  */
 public class Playdata
 {
+	/** セーブデータのファイル */
+	private static final File SAVEDATA = new File("data.bin");
+
 	/** 得点 */
-	static int score;
+	private static int score;
 	/** 最高得点 */
-	static int hiscore;
+	private static int hiscore;
 	/** 残機 */
-	static int life;
+	private static int life;
 	/** 残りボム */
-	static int bomb;
+	private static int bomb;
 	/** パワー */
-	static int power;
+	private static int power;
 	/** グレイズ回数 */
-	static int graze;
+	private static int graze;
 	/** ゲームオーバーフラグ */
-	static boolean isGameover;
+	private static boolean gameOver;
 
 	/**
 	 * 初期化処理.
@@ -41,7 +45,7 @@ public class Playdata
 		bomb = 3;
 		power = 0;
 		graze = 0;
-		isGameover = false;
+		gameOver = false;
 	}
 
 	/**
@@ -95,7 +99,8 @@ public class Playdata
 		life += gain;
 		if (life < 0)
 		{
-			isGameover = true;
+			gameOver = true;
+			saveScore();
 		}
 	}
 
@@ -137,12 +142,12 @@ public class Playdata
 	/**
 	 * 得点を保存する.
 	 */
-	static void saveScore()
+	private static void saveScore()
 	{
 		DataOutputStream dout;
 		try
 		{
-			dout = new DataOutputStream(new FileOutputStream("data.dat"));
+			dout = new DataOutputStream(new FileOutputStream(SAVEDATA));
 			dout.writeInt(hiscore);
 			dout.close();
 		}
@@ -155,12 +160,14 @@ public class Playdata
 	/**
 	 * 得点を読み込む.
 	 */
-	static void loadScore()
+	private static void loadScore()
 	{
+		if (!SAVEDATA.exists()) return;
+
 		DataInputStream din;
 		try
 		{
-			din = new DataInputStream(new FileInputStream("data.dat"));
+			din = new DataInputStream(new FileInputStream(SAVEDATA));
 			hiscore = din.readInt();
 			din.close();
 		}
@@ -168,5 +175,15 @@ public class Playdata
 		{
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * ゲームオーバーかどうかを返す.
+	 *
+	 * @return ゲームオーバーかどうか
+	 */
+	public static boolean isGameOver()
+	{
+		return gameOver;
 	}
 }
