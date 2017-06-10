@@ -23,19 +23,19 @@ public abstract class GameState
 	}
 
 	/**
-	 * 初期化を行う.
+	 * 初期化処理.
 	 */
 	public abstract void init(GameContainer gc)
 			throws SlickException;
 
 	/**
-	 * 動作を規定する.
+	 * ステップごとの更新.
 	 */
 	public abstract void update(GameContainer gc, int delta)
 			throws SlickException;
 
 	/**
-	 * 描画処理を行う.
+	 * ステップごとの描画処理.
 	 */
 	public abstract void render(GameContainer gc, Graphics g)
 			throws SlickException;
