@@ -24,7 +24,7 @@ public class Shot
 	private int counter;
 	private int nextShoot;
 	private int shootCnt;
-	boolean isEnd;
+	boolean isFinished;
 
 	Shot(int type, int times, int interval, int aimType,
 			float angle1, float angle2, int range, int ways,
@@ -84,7 +84,7 @@ public class Shot
 
 			if (++shootCnt == times)
 			{
-				isEnd = true;
+				isFinished = true;
 				return;
 			}
 

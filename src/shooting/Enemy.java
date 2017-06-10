@@ -89,7 +89,7 @@ public class Enemy extends GameObject
 		if (isShooting)
 		{
 			shot.fire(x, y);
-			isShooting = !shot.isEnd;
+			isShooting = !shot.isFinished;
 		}
 
 		counter++;
